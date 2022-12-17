@@ -4,7 +4,8 @@ const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.ts',
+  watch: true,
+  entry: './src/index',
   mode: 'development',
   devServer: {
     compress: true,
@@ -35,9 +36,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' }), new CopyPlugin({
+  plugins: [ new HtmlWebpackPlugin({ template: './src/index.html' }), new CopyPlugin({
       patterns: [
-        { from: "src", to: "src" },
+        { from: "src/img", to: "img" },
         // { from: "other", to: "public" },
       ],
     }),
