@@ -1,15 +1,15 @@
 import products from '../src/products.json'
 import './scss/base.scss'
-console.log(products)
+// console.log(products)
 
-const p = document.createElement('p')
-const br = document.createElement('br')
-p.className = 'test-P'
-for (let i = 0; i < products.length; i++) {
-  p.innerText += `${i}) ${products[i].title}`
-  document.body.append(p)
-  p.append(br)
-}
+// const p = document.createElement('p')
+// const br = document.createElement('br')
+// p.className = 'test-P'
+// for (let i = 0; i < products.length; i++) {
+//   p.innerText += `${i}) ${products[i].title}`
+//   document.body.append(p)
+//   p.append(br)
+// }
 
 const b = 5
 
