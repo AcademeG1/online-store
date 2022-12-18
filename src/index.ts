@@ -1,7 +1,9 @@
-import products from '../src/products.json'
 import './scss/base.scss'
-// console.log(products)
+import App from './pages/app'
 
+const app = new App()
+app.run();
+// console.log(products)
 // const p = document.createElement('p')
 // const br = document.createElement('br')
 // p.className = 'test-P'
@@ -10,11 +12,3 @@ import './scss/base.scss'
 //   document.body.append(p)
 //   p.append(br)
 // }
-
-const b = 5
-
-function info (k: number): void {
-  console.log(k)
-}
-
-info(b)

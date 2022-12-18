@@ -28,16 +28,19 @@
     },
     "parser": "@typescript-eslint/parser",
     "rules": {
+        "eol-last": "warn",
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/prefer-readonly": "warn",
         "no-console": "off",
         "no-var": "error",
-        "semi": "error",
+        // "semi": "warn",
         "indent": "error",
         "no-multi-spaces": "error",
         "space-in-parens": "error",
         "no-multiple-empty-lines": "error",
         "prefer-const": "error",
         "no-use-before-define": "error",
-        "@typescript-eslint/no-explicit-any": 2
+        "@typescript-eslint/no-explicit-any": "error"
     },
     "plugins": [
         "@typescript-eslint"
