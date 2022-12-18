@@ -55,18 +55,18 @@
         </div>
         <div class="two-columns">
           <div class="main__sidebar">
-            <div class="filter-section">
-              <div class="">
+            <div class="main__sidebar_wrapper">
+              <div class="filter-section">
                 <div class="filter-section_price">
-                  <div class="price price_from">
+                  <div class="price range_from">
                     <span class="line-prefix">От</span>
                     <input type="number" value="0" min="0" max="263" step="100">
                   </div>
-                  <div class="price price_to">
+                  <div class="price range_to">
                     <span class="line-prefix">До</span>
                     <input type="number" value="0" min="0" max="263" step="100">
                   </div>
-                  <div class="price-range-slider"></div>
+                  <div class="range-slider"></div>
                 </div>
                 <div class="filter-section_category" id="categories">
                   <div class="filter-section_title">Категория</div>
@@ -230,19 +230,17 @@
                     <label for="10kingdom">Десятое королевство</label>
                   </div>
                 </div>
-                <div class="filter-section_amount" id="<amount">
+                <div class="filter-section_amount" id="amount">
                   <div class="filter-section_title">Количество игроков</div>
-                  <div class="range-slider">
-                    <input type="range" min="0" max="7" value="1">
-                    <div class="range-slider__helpers_first">Любое</div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <div class="range-slider__helpers_last">Больше</div>
+                  <div class="amount range_from">
+                    <span class="line-prefix">От</span>
+                    <input type="number" value="0" min="0" max="99" step="10">
                   </div>
+                  <div class="amount range_to">
+                    <span class="line-prefix">До</span>
+                    <input type="number" value="0" min="0" max="99" step="10">
+                  </div>
+                  <div class="range-slider"></div>
                 </div>
               </div>
             </div>
