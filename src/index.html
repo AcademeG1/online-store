@@ -13,6 +13,7 @@
           <img src="/img/icon-dices.png" alt="Logo" width="70" height="70" />
           <h1>Board Game Store</h1>
         </div>
+        <!--Поисковая строка-->
         <div class="header__search">
           <form action="header__search_form">
             <input
@@ -27,6 +28,7 @@
             </button>
           </form>
         </div>
+        <!--Корзина-->
         <div class="header__shoping-cart" id="shoping-cart">
           <div class="header__shoping-cart_info">
             <span class="header__shoping-cart_icon"></span>
@@ -38,6 +40,7 @@
     </header>
     <main>
       <div class="wrapper main__wrapper">
+        <!--"Хлебные крошки"-->
         <div class="breadcrumbs">
           <ul itemscope itemtype="#">
             <li itemprop="itemListElement" itemscope itemtype="#">
@@ -53,6 +56,7 @@
         </div>
         <div>
           <h2>Настольные игры</h2>
+          <!--Сортировка-->
           <div class="sort-view">
             <span сlass="sort-title">Сортировать:</span>
             <select name="sort-select" id="sort">
@@ -67,6 +71,7 @@
         <div class="two-columns">
           <div class="main__sidebar">
             <div class="main__sidebar_wrapper">
+              <!--Фильтрация по цене, noUislider-->
               <div class="filter-section filter-section_price">
                 <div class="price range_from">
                   <span class="line-prefix">От</span>
@@ -78,6 +83,7 @@
                 </div>
                 <div class="range-slider"></div>
               </div>
+              <!--Фильтрация по категориям-->
               <div
                 class="filter-section filter-section_category"
                 id="categories">
@@ -111,6 +117,7 @@
                   <label for="travel">Игры в дорогу</label>
                 </div>
               </div>
+              <!--Фильтрация по возрасту-->
               <div class="filter-section filter-section_old" id="old">
                 <div class="filter-section_title">Возраст</div>
                 <div class="filter-option">
@@ -134,6 +141,7 @@
                   <label for="16">более 16 лет</label>
                 </div>
               </div>
+              <!--Фильтрация по продолжительности-->
               <div class="filter-section filter-section_duration" id="duration">
                 <div class="filter-section_title">Продолжительность</div>
                 <div class="filter-option">
@@ -157,6 +165,7 @@
                   <label for="2hour">от 2 часов</label>
                 </div>
               </div>
+               <!--Фильтрация по брендам-->
               <div class="filter-section filter-section_brand" id="brand">
                 <div class="filter-section_title">Производитель</div>
                 <div class="filter-option">
@@ -192,6 +201,7 @@
                   <label for="10kingdom">Десятое королевство</label>
                 </div>
               </div>
+              <!--Фильтрация по количеству игроков-->
               <div class="filter-section filter-section_amount" id="amount">
                 <div class="filter-section_title">Количество игроков</div>
                 <div class="amount range_from">
@@ -207,6 +217,7 @@
             </div>
           </div>
           <div class="main__content">
+            <!--Блок товара, шаблон для скрипта-->
             <div class="products__container">
               <div class="product__item" id="product">
                 <div class="product__item_content">
