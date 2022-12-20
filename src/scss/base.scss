@@ -1,41 +1,16 @@
-$bg-color: rgb(218, 167, 167);
+@import 'abstracts/mixins';
+@import 'abstracts/placeholders';
+@import 'abstracts/constants';
 
-body {
-    // background: $bg-color;
-    background: white;
-    margin: 0;
-}
+@import 'base/base';
+@import 'base/fonts';
+@import 'base/normalize';
 
-.two-columns {
-    display: flex;
-}
+@import 'layouts/header';
+@import 'layouts/main';
+@import 'layouts/footer';
 
-.main_siderbar {
-    flex: 1;
-}
+@import 'components/cards';
+@import 'components/filters';
 
-.main__content {
-    display: flex;
-    flex: 1 1 55%;
-    
-}
 
-.products__container {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 1;
-}
-
-.product__item {
-    flex: 1 1 33.3%;
-    height: 500px;
-}
-
-.product_image {
-    width: 350px;
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}

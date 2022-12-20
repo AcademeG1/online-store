@@ -5,17 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BoardGameStore</title>
+    <link rel="shortcut icon" href="/img/icon-dices.png" type="image/png">
   </head>
   <body>
     <header class="header">
       <div class="wrapper header__wrapper">
         <div class="header__logo">
           <img src="/img/icon-dices.png" alt="Logo" width="70" height="70" />
-          <h1>Board Game Store</h1>
+          <h1><span class="title-letter">B</span>oard <span class="title-letter">G</span>ames <span class="title-letter">S</span>tore</h1>
         </div>
         <!--Поисковая строка-->
         <div class="header__search">
-          <form action="header__search_form">
+          <!-- <form action="header__search_form"> -->
             <input
               type="search"
               class="header__search_input"
@@ -24,37 +25,41 @@
               autocomplete="off"
             />
             <button class="header__search_submit" type="submit">
-              <span class="header__search_icon"></span>
+              <span class="header__search_icon">
+                <img src="/img/icon-search.png" alt="Submit" width="20" height="20">
+              </span>
             </button>
-          </form>
+          <!-- </form> -->
         </div>
         <!--Корзина-->
         <div class="header__shoping-cart" id="shoping-cart">
           <div class="header__shoping-cart_info">
-            <span class="header__shoping-cart_icon"></span>
+            <span class="header__shoping-cart_icon">
+              <img src="/img/icon-shopping-cart.png" alt="Shpping Cart" width="20" height="20">
+            </span>
             <span class="header__shoping-cart_count">0</span>
             <span class="header__shoping-cart_label">Корзина</span>
           </div>
         </div>
       </div>
     </header>
-    <main>
+    <main class="main">
       <div class="wrapper main__wrapper">
         <!--"Хлебные крошки"-->
         <div class="breadcrumbs">
           <ul itemscope itemtype="#">
             <li itemprop="itemListElement" itemscope itemtype="#">
               <a href="/" title="Главная" itemprop="item">
-                <span itemprop="name">Главная</span>
+                <span class="breadcrumbs__title" itemprop="name">Главная</span>
               </a>
               <meta itemprop="position" content="1" />
             </li>
             <li>
-              <i class="arrow"></i>
+              <span class="arrow"></span>
             </li>
           </ul>
         </div>
-        <div>
+        <div class="sort-info">
           <h2>Настольные игры</h2>
           <!--Сортировка-->
           <div class="sort-view">
@@ -73,6 +78,7 @@
             <div class="main__sidebar_wrapper">
               <!--Фильтрация по цене, noUislider-->
               <div class="filter-section filter-section_price">
+                <div class="filter-section_title">Цена</div>
                 <div class="price range_from">
                   <span class="line-prefix">От</span>
                   <input type="number" value="0" min="0" max="263" step="10" />
@@ -223,7 +229,9 @@
                 <div class="product__item_content">
                   <div class="product_image"></div>
                   <div class="product_title"></div>
-                  <div class="product_price"></div>
+                  <div class="product_price button">
+                    <!-- <span>бел.руб.</span> -->
+                  </div>
                   <div class="product_params">
                     <div class="params__item raiting">
                       <img src="/img/icon-star.png" alt="Raiting" width="20" height="20">
@@ -245,27 +253,33 @@
         </div>
       </div>
     </main>
-    <footer>
-      <div class="footer-link">
-        <p>GitHub</p>
-        <a class="text" href="https://github.com/tarasovamary"> Mariya Tarasova</a>
-        <a class="text" href="https://github.com/AcademeG1"> Michail Ignatovich</a>
-        <img
-          src="img/icon-github.png"
-          width="35"
-          height="35"
-          alt="Icon GitHub"
-        />
-      </div>
-      <div>
-        <a href="https://rs.school/js/">
-          <img
-            src="img/icon-rs_school.svg"
-            width="100"
-            height="100"
-            alt="Icon RSSchool"
-          />
-        </a>
+    <footer class="footer">
+      <div class="wrapper footer__wrapper">
+        <div class="footer-link">
+          <div class="github__icon">
+            <img
+              src="img/icon-github.png"
+              width="35"
+              height="35"
+              alt="Icon GitHub"
+            />
+            <p class="github__title">GitHub:</p>
+          </div>
+          <div class="github__links">
+            <a class="text" href="https://github.com/tarasovamary"> Mariya Tarasova</a>
+            <a class="text" href="https://github.com/AcademeG1"> Michail Ignatovich</a>
+          </div>
+        </div>
+        <div>
+          <a href="https://rs.school/js/">
+            <img
+              src="img/icon-rs_school.svg"
+              width="100"
+              height="100"
+              alt="Icon RSSchool"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   </body>
