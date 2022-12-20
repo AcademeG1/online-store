@@ -21,6 +21,7 @@
 .product__item_content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
   background-color: $color-content;
   border: 2px solid $color-cards;
@@ -29,6 +30,7 @@
 }
 
 .product__item {
+  display: flex;
   flex: 1 1 33.3%;
 }
 
@@ -36,6 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
   overflow: hidden;
   cursor: pointer;
   img {
