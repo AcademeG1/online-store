@@ -50,7 +50,7 @@ class Card {
     console.log(this.productImage);
     this.productImage.append(img); // Добавяю картинку в блок
     this.productTitle.append(path.title);
-    this.productPrice.append(`${path.price}`);
+    this.productPrice.append(`${path.price} руб`);
     this.productRaiting.append(`${path.rating}`);
     this.productDuration.append(`${path.duration}`);
     this.productPlayers.append(`${path.amount}`);

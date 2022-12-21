@@ -33,12 +33,12 @@ class MainPage {
 
   render (): HTMLElement {
     this.clear();// метод очищения родителя от всех карточек
-    for (let i = 0; i < products.length; i++) { // цикл создания карточек
-      this.prodElement.id = `${i}product`; // присваиваем каждой карточке id
+    products.forEach((item, index) => {
+      this.prodElement.id = `${index}product`; // присваиваем каждой карточке id
+      card.render(products[index], `${index}product`); // генерация внутри каждоый карточки (передаю путь к нужному обьекту, и id карточки)
       this.container.append(this.prodElement?.cloneNode(true)); // копирование ноды с картой и добаввление ее в контейнер
-      card.render(products[i], `${i}product`); // генерация внутри каждоый карточки (передаю путь к нужному обьекту, и id карточки)
-    }
-    document.querySelector('.products__container')?.firstChild?.remove();
+    });
+    // document.querySelector('.products__container')?.firstChild?.remove();
     return this.container;
   }
 }

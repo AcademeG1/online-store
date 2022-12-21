@@ -27,6 +27,7 @@
   border: 2px solid $color-cards;
   padding: 10px;
   margin: 10px;
+  flex: 1;
 }
 
 .product__item {
@@ -55,6 +56,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  .params__item {
+    display: flex;
+    gap: 5px;
+  }
 }
 
 .product_price {
