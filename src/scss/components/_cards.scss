@@ -45,6 +45,11 @@
   img {
     height: 85%;
     width: 85%;
+   
+  }
+  &:hover {
+   transform: scale(1.1);
+    transition: all .5s ease;
   }
 }
 
@@ -86,4 +91,8 @@
   cursor: pointer;
   background: $color-cart;
   white-space: nowrap;
+  &:hover {
+    background: $color-additionaly;
+    transition: all 0.5 ease;
+  }
 }

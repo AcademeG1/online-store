@@ -79,15 +79,21 @@
               <!--Фильтрация по цене, noUislider-->
               <div class="filter-section filter-section_price">
                 <div class="filter-section_title">Цена</div>
-                <div class="price range_from">
-                  <span class="line-prefix">От</span>
-                  <input type="number" value="0" min="0" max="263" step="10" />
+                <div class="filter-section_range">
+                  <div class="range">
+                    <div class="price range_from">
+                      <span class="line-prefix">От</span>
+                      <input id="input-price-from" type="number" value="0" min="0" max="263" step="10" />
+                    </div>
+                    <div class="price range_to">
+                      <span class="line-prefix">До</span>
+                      <input id="input-price-to" type="number" value="263" min="0" max="263" step="10" />
+                    </div>
+                  </div>
+                  <div class="slider__wrap">
+                    <div id="slider-price"></div>
+                  </div>
                 </div>
-                <div class="price range_to">
-                  <span class="line-prefix">До</span>
-                  <input type="number" value="263" min="0" max="263" step="10" />
-                </div>
-                <div class="range-slider"></div>
               </div>
               <!--Фильтрация по категориям-->
               <div
@@ -210,15 +216,21 @@
               <!--Фильтрация по количеству игроков-->
               <div class="filter-section filter-section_amount" id="amount">
                 <div class="filter-section_title">Количество игроков</div>
-                <div class="amount range_from">
-                  <span class="line-prefix">От</span>
-                  <input type="number" value="0" min="0" max="99" step="10" />
+                <div class="filter-section_range">
+                  <div class="range">
+                    <div class="amount range_from">
+                      <span class="line-prefix">От</span>
+                      <input id="input-amount-from" type="number" value="0" min="0" max="99" step="10" />
+                    </div>
+                    <div class="amount range_to">
+                      <span class="line-prefix">До</span>
+                      <input id="input-amount-to" type="number" value="99" min="0" max="99" step="10" />
+                    </div>
+                  </div>
+                  <div class="slider__wrap">
+                    <div id="slider-amount"></div>
+                  </div>
                 </div>
-                <div class="amount range_to">
-                  <span class="line-prefix">До</span>
-                  <input type="number" value="99" min="0" max="99" step="10" />
-                </div>
-                <div class="range-slider"></div>
               </div>
             </div>
           </div>
@@ -229,9 +241,7 @@
                 <div class="product__item_content">
                   <div class="product_image"></div>
                   <div class="product_title"></div>
-                  <div class="product_price button">
-                    <!-- <span>бел.руб.</span> -->
-                  </div>
+                  <div class="product_price button"></div>
                   <div class="product_params">
                     <div class="params__item raiting">
                       <img src="/img/icon-star.png" alt="Raiting" width="20" height="20">
@@ -270,15 +280,18 @@
             <a class="text" href="https://github.com/AcademeG1"> Michail Ignatovich</a>
           </div>
         </div>
-        <div>
+        <div class="rsschool__logo">
           <a href="https://rs.school/js/">
             <img
               src="img/icon-rs_school.svg"
-              width="100"
-              height="100"
+              width="120"
+              height="120"
               alt="Icon RSSchool"
             />
           </a>
+        </div>
+        <div class ="footer-info">
+          <span>2022</span>
         </div>
       </div>
     </footer>

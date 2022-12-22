@@ -2,6 +2,10 @@
   background-color: $color-background;
 }
 
+.main__wrapper {
+  padding-right: 0;
+}
+
 .breadcrumbs {
   padding: 16px 0 16px 5px;
   ul {
@@ -43,4 +47,6 @@
 
 select {
   outline: none;
+  color: $color-text;
+  cursor: pointer;
 }

@@ -12,6 +12,11 @@
 .github__icon {
   display: flex;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    transition: all .5s ease;
+    filter: invert(100%);
+  }
 }
 
 .github__title {
@@ -29,5 +34,27 @@
     text-decoration: none;
     color: black;
     padding-bottom: 5px;
+    font-size: 1.8rem;
+  }
+}
+a:hover {
+  color: $color-content-hover;
+  transition: all .5s ease;
+}
+
+.footer-info {
+  align-self: flex-end;
+  span {
+    color: black;
+    @include font($size: 1.8rem, $height:3.4rem);
+  }
+}
+
+.rsschool__logo {
+  img {
+    &:hover {
+      transition: all .5s ease;
+      filter: invert(100%);
+    }
   }
 }

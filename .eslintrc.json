@@ -29,7 +29,7 @@
     "parser": "@typescript-eslint/parser",
     "rules": {
         "eol-last": "warn",
-        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/semi": "off",
         "@typescript-eslint/prefer-readonly": "warn",
         "no-console": "off",
         "no-var": "error",
