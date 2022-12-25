@@ -1,5 +1,17 @@
-$bg-color: pink;
+@import 'abstracts/mixins';
+@import 'abstracts/placeholders';
+@import 'abstracts/constants';
 
-body {
- background: $bg-color;
-}
+@import 'base/base';
+@import 'base/fonts';
+@import 'base/normalize';
+
+@import 'layouts/header';
+@import 'layouts/main';
+@import 'layouts/footer';
+
+@import 'components/cards';
+@import 'components/filters';
+@import 'components/nouislider';
+
+

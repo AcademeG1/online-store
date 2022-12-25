@@ -1,13 +1,15 @@
-import products from "../src/products.json";
 import './scss/base.scss'
-console.log(products)
+import App from './pages/app'
+import './nouislider/index'
 
-let p = document.createElement('p');
-let br = document.createElement('br');
-p.className = 'test-P';
-for (let i = 0; i < products.length; i++) {
-    p.innerText += `${i}) ${products[i].title}`;
-    document.body.append(p);
-    p.append(br);
-}
-console.log(typeof p)
+const app = new App()
+app.run();
+// console.log(products)
+// const p = document.createElement('p')
+// const br = document.createElement('br')
+// p.className = 'test-P'
+// for (let i = 0; i < products.length; i++) {
+//   p.innerText += `${i}) ${products[i].title}`
+//   document.body.append(p)
+//   p.append(br)
+// }
