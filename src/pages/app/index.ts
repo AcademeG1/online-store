@@ -3,8 +3,10 @@ import MainPage, { arrayId } from '../main-page/main';
 import Page from '../../core/page';
 import Description from '../../core/description';
 import CardDescriptionPage from '../card-description/card-description';
+import SearchProducts from '../main-search/mainSearch';
 class App {
   private mainPage: MainPage;
+  private searchProducts: SearchProducts;
 
   static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
@@ -31,6 +33,7 @@ class App {
 
   constructor () {
     this.mainPage = new MainPage('main-page');
+    this.searchProducts = new SearchProducts();
   }
 
   private enableRouteChange (): void {
@@ -43,6 +46,7 @@ class App {
 
   run (): void {
     this.mainPage.render();
+    this.searchProducts.searchProduct();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
     //   document.getElementById(item)?.addEventListener('click', () => {
     //     App.newRenderPage(item); // вроде уже не надо, но пускай будет

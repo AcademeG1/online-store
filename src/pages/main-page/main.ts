@@ -18,9 +18,8 @@ class MainPage extends Page {
   }
 
   render (): HTMLElement {
-    // const elem = this.createNewElement('div', 'wrapper main__wrapper');
-    // elem.append(this.createNewElement('div', 'a'));
-    // this.mainContainer.append(elem);
+    const search = document.querySelector('.header__search') as HTMLElement; // показать поиск
+    search.style.display = 'flex'; // показать поиск
     this.mainContainer.innerHTML = `
     <div class="wrapper main__wrapper">
         <!--"Хлебные крошки"-->
@@ -222,6 +221,7 @@ class MainPage extends Page {
         </div>
       </div>
     `;
+    document.getElementById('searchBar')?.addEventListener('mousedown', (event) => { const target = event.target as HTMLSelectElement; target.value = '' }); // для очистки инпута, когда нажимаем снова (чтобы не висело постоянно)
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
     console.log(this.mainContent)
     this.mainContent.innerHTML = '';
@@ -229,7 +229,7 @@ class MainPage extends Page {
       const element = document.createElement('a');
       element.id = `${++index}product`;
       element.className = 'product__item';
-      element.href = `#${++index}product`;
+      element.href = `#${index}product`;
       // const element = this.createNewElement('a', 'product__item', `${++index}product`); // создание карточки товара, ее контейнер
       arrayId.push(`${index}product`);
       const elementContent = this.createNewElement('div', 'product__item_content'); // создание оболочки элементов контейнера карты

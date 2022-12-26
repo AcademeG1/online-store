@@ -14,7 +14,7 @@ class CardDescriptionPage extends Description {
   constructor (ids: string) {
     super(ids);
     this.ids = parseInt(ids);
-    this.ids--;
+    // this.ids--;
     this.card = document.getElementById('main-id') as HTMLElement; // если добавление после ноды, но текст сьезжает за футер
     this.itemTitle = document.querySelector('.item-title') as HTMLElement;
     this.mainWrap = document.querySelector('.main__wrapper') as HTMLElement;// сохранение main-wrapper
@@ -25,6 +25,8 @@ class CardDescriptionPage extends Description {
   }
 
   render (): HTMLElement {
+    const search = document.querySelector('.header__search') as HTMLElement; // прятать поиск
+    search.style.display = 'none'; // прятать поиск
     this.body.innerHTML = ''; // очистка боди, для новго заполнения
     this.body.append(this.header); // добавление сохраненного хедера на страницу
     this.mainWrap.innerHTML = ''; // очистка всего что в мэин
