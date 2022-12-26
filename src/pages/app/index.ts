@@ -1,55 +1,54 @@
 // тут будет собираться все приложение в одно
-import MainPage from '../main';
-import products from '../../products.json'
-import CardDescriptionPage from '../card-description/card-description';
+import MainPage, { arrayId } from '../main-page/main';
+import Page from '../../core/page';
 import Description from '../../core/description';
-
-export const enum PageIds {
-  basket = 'basket-page',
-  product = 'product-page',
-  StatisticsPage = 'statistics-page',
-}
-
+import CardDescriptionPage from '../card-description/card-description';
 class App {
   private mainPage: MainPage;
-  // private cardDescriptionPage:
-  private prodItem = document.getElementsByClassName('product__item');
-  static arrId: string[];
 
-  // Description = astract класс, который обобщенно описывает страницу
-  // cardDescriptionPage = класс который описывает определенную страницу, каждой карточки, у каждой должен быть метод render
-
-  static newRenderPage (idPage: string | undefined): void {
+  static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
     document.querySelector('.two-columns')?.remove();
-    if (idPage === undefined) {
-      console.log('Косяк!!')
-    }
+    console.log(idPage)
 
-    let page: Description | null = null;
-    if (App.arrId?.includes(String(idPage))) {
+    let page: Page | null | Description = null;
+    if (arrayId?.includes(String(idPage))) {
       page = new CardDescriptionPage(String(idPage)); // тут должен вернуться html элемент готовой карточки
+    } else if (idPage === 'mainPage') {
+      page = new MainPage(idPage);
     }
 
-    if (page != null) {
-      const pageHTML = page.render();
-      document.body.append(pageHTML);
+    if (page) {
+      window.location.hash = `#${idPage}`;
+      const pageHTML = page.render() as HTMLElement;
+      try {
+        document.querySelector('.header')?.after(pageHTML);
+      } catch (all) {
+        console.log('Все под контролем) отработал и хорошо)')
+      }
     }
   }
 
   constructor () {
-    this.mainPage = new MainPage();
-    App.arrId = [];
+    this.mainPage = new MainPage('main-page');
+  }
+
+  private enableRouteChange (): void {
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.slice(1);
+      App.newRenderPage(hash);
+      // console.log('сработал')
+    });
   }
 
   run (): void {
     this.mainPage.render();
-    Array.from(document.querySelectorAll('.product__item')).forEach((elem) => { App.arrId.push(elem.id) }); // нужно получить массив id (0product)
-    for (let i = 0; i < this.prodItem.length; i++) {
-      this.prodItem.item(i)?.addEventListener('click', () => {
-        App.newRenderPage(this.prodItem.item(i)?.id);
-      })
-    }
+    // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
+    //   document.getElementById(item)?.addEventListener('click', () => {
+    //     App.newRenderPage(item); // вроде уже не надо, но пускай будет
+    //   })
+    // })
+    this.enableRouteChange();
   }
 }
 
