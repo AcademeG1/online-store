@@ -27,6 +27,7 @@ abstract class Description {
     if (tag === 'span') {
       elem = document.createElement(tag);
       elem.className = className;
+      elem.innerText = text;
       return elem;
     }
     return document.body;

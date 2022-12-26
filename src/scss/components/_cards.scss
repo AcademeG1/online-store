@@ -33,6 +33,8 @@
 .product__item {
   display: flex;
   flex: 1 1 33.3%;
+  text-decoration: none;
+  color: $color-title;
 }
 
 .product_image {
