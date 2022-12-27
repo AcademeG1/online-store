@@ -32,7 +32,6 @@ class CardDescriptionPage extends Description {
     this.mainWrap.innerHTML = ''; // очистка всего что в мэин
     this.mainWrap.append(this.card); // добавление строки роутинга
     // наполнение страницы нужными элементами (переделать под цикл в будущем)
-    this.mainWrap.append(document.createElement('span').textContent = 'Название: ');
     this.mainWrap.append(this.createElement('span', `card${this.ids} titleC`, `${products.filter(elem => elem.id === this.ids)[0].title}`));
     this.mainWrap.append(document.createElement('br'));
     this.mainWrap.append(document.createElement('span').textContent = 'Описание: ');

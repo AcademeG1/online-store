@@ -40,14 +40,14 @@ abstract class Search {
 
   renderElements (arrEl: Product[]) {
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
-    console.log(this.mainContent);
+    // console.log(this.mainContent);
     // console.log(arrEl);
     if (arrEl.length === 0) {
       const none = document.createElement('div');
       none.style.textAlign = 'center';
       none.style.width = '100%';
-      none.style.fontSize = '24px';
-      none.style.alignSelf = 'center';
+      none.style.fontSize = '32px';
+      none.style.marginTop = '45px';
       none.innerText = 'Таких игр нет :(';
       this.mainContent.append(none);
     } else {
