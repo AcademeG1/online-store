@@ -14,7 +14,6 @@ export interface Product {
   thumbnail: string
   images: string[]
 }
-
 abstract class Search {
   private mainContainer: HTMLElement;
   private mainContent: HTMLElement;
@@ -28,9 +27,13 @@ abstract class Search {
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
     const element = document.createElement(tagName);
-    element.className = className;
+    if (className !== '') {
+      element.className = className;
+    }
     if (idName != null) {
-      element.id = idName;
+      if (idName !== '') {
+        element.id = idName;
+      }
     }
     if (text != null) {
       element.innerText = text;
@@ -38,10 +41,8 @@ abstract class Search {
     return element;
   }
 
-  renderElements (arrEl: Product[]) {
+  renderElements (arrEl: Product[]): HTMLElement {
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
-    // console.log(this.mainContent);
-    // console.log(arrEl);
     if (arrEl.length === 0) {
       const none = document.createElement('div');
       none.style.textAlign = 'center';

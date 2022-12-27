@@ -221,7 +221,7 @@ class MainPage extends Page {
         </div>
       </div>
     `;
-    document.getElementById('searchBar')?.addEventListener('mousedown', (event) => { const target = event.target as HTMLSelectElement; target.value = '' }); // для очистки инпута, когда нажимаем снова (чтобы не висело постоянно)
+    document.getElementById('searchBar')?.addEventListener('focus', (event) => { const target = event.target as HTMLSelectElement; target.value = ''; this.render() }); // для очистки инпута, когда нажимаем снова (чтобы не висело постоянно)
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
     console.log(this.mainContent)
     this.mainContent.innerHTML = '';
