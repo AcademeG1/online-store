@@ -16,6 +16,7 @@
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  align-content: flex-start;
 }
 
 .product__item_content {
@@ -35,6 +36,8 @@
   flex: 1 1 33.3%;
   text-decoration: none;
   color: $color-title;
+  max-width: 310px;
+  max-height: 33.3%;
 }
 
 .product_image {
