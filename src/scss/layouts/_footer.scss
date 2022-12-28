@@ -37,9 +37,11 @@
     font-size: 1.8rem;
   }
 }
-a:hover {
-  color: $color-content-hover;
-  transition: all .5s ease;
+.github__links {
+  a:hover {
+    color: $color-content-hover;
+    transition: all .5s ease;
+  }
 }
 
 .footer-info {

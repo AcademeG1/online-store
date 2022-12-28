@@ -9,9 +9,13 @@ abstract class Page {
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
     const element = document.createElement(tagName);
-    element.className = className;
+    if (className !== '') {
+      element.className = className;
+    }
     if (idName != null) {
-      element.id = idName;
+      if (idName !== '') {
+        element.id = idName;
+      }
     }
     if (text != null) {
       element.innerText = text;
