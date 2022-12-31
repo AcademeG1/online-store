@@ -1,3 +1,19 @@
+import products from '../products.json'
+interface Product {
+  id: number
+  title: string
+  description: string
+  price: number
+  discountPercentage: number
+  rating: number
+  brand: string
+  category: string
+  duration: number
+  amount: number
+  old: number
+  thumbnail: string
+  images: string[]
+}
 abstract class Page {
   private container: HTMLElement;
   private id: string;
@@ -23,7 +39,7 @@ abstract class Page {
     return element;
   }
 
-  render (): HTMLElement {
+  render (products: Product[], ids: string): HTMLElement {
     return this.container;
   }
 }

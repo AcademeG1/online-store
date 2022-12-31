@@ -6,6 +6,7 @@ import CardDescriptionPage from '../card-description/card-description';
 import SearchProducts from '../main-search/mainSearch';
 import nouislider from '../../nouislider';
 import ErrorPage from '../error/error';
+import products from '../../products.json';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
@@ -26,7 +27,7 @@ class App {
 
     if (page) {
       window.location.hash = `#${idPage}`;
-      const pageHTML = page.render() as HTMLElement;
+      const pageHTML = page.render(products, 'mainPage') as HTMLElement;
       try {
         document.querySelector('.header')?.after(pageHTML);
         nouislider();
@@ -37,7 +38,7 @@ class App {
   }
 
   constructor () {
-    this.mainPage = new MainPage('main-page');
+    this.mainPage = new MainPage('mainPage');
     this.searchProducts = new SearchProducts();
   }
 
@@ -49,7 +50,7 @@ class App {
   }
 
   run (): void {
-    this.mainPage.render();
+    this.mainPage.render(products, 'mainPage');
     this.searchProducts.searchProduct();
     nouislider();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
