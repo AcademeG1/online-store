@@ -1,4 +1,5 @@
 import products from '../products.json'
+import Cart from './cart'
 interface Product {
   id: number
   title: string
@@ -17,10 +18,16 @@ interface Product {
 abstract class Page {
   private container: HTMLElement;
   private id: string;
+  private price: HTMLElement;
+  private priceElement: HTMLElement;
+  private cart: Cart;
 
   constructor (id: string) {
     this.id = id;
     this.container = document.querySelector('.main') as HTMLElement;
+    this.price = document.body;
+    this.priceElement = document.body;
+    this.cart = new Cart();
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -37,6 +44,35 @@ abstract class Page {
       element.innerText = text;
     }
     return element;
+  }
+
+  createElementListener (item: Product): HTMLElement {
+    this.price = document.createElement('div');
+    this.price.className = 'product_price button';
+    this.price.id = `${item.id}productBtn`
+    this.price.innerText = `${item.price} руб`;
+    // this.cart.removeCart('0'); // почистить массив, перед добавлением
+    this.price.addEventListener('click', (event) => {
+      const element = document.getElementById(`${item.id}productBtn`) as HTMLElement;
+      this.checkElem(element, item);
+    })
+    return this.price;
+  }
+
+  checkElem (element: HTMLElement, item: Product): void {
+    if (element.innerText === 'В корзине') {
+      this.cart.removeCart(item.id.toString())
+      this.refactorElement(element, 'rgb(242, 208, 97)', `${item.price} руб`);
+    } else {
+      this.cart.addCart(item.id.toString(), 1);
+      this.refactorElement(element, 'red', 'В корзине');
+    }
+  }
+
+  refactorElement (element: HTMLElement, color: string, text: string): void {
+    element.innerText = text;
+    element.style.backgroundColor = color;
+    this.cart.viewCountCart();
   }
 
   render (products: Product[], ids: string): HTMLElement {

@@ -29,6 +29,7 @@ class MainPage extends Page {
     this.mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContent = document.body; // это просто присвоение на приколе, ниже переназначено на .main__content
     this.footer = document.querySelector('.footer') as HTMLElement;
+    // this.cart = new Cart();
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -276,13 +277,15 @@ class MainPage extends Page {
         const elementContent = this.createNewElement('div', 'product__item_content'); // создание оболочки элементов контейнера карты
         // const imgElementContent = this.createNewElement('div', 'product_image'); // создание оболочки для картинки
         const imgElementContent = document.createElement('a'); // создание контейнера ссылки картинки
-        imgElementContent.href = `#${index}product`; 
+        imgElementContent.href = `#${index}product`;
         imgElementContent.className = 'product_image';
         const img = document.createElement('img'); // создание картинки
         img.className = `${index}product`; // класс для картинки
         img.src = `${item.thumbnail}`; // путь для картинки
         imgElementContent.append(img); // добавление картинки в контейнер картинки (враппер)
-        elementContent.append(imgElementContent, this.createNewElement('div', 'product_title', '', `${item.title}`), this.createNewElement('div', 'product_price button', '', `${item.price} руб`)); // добавление картинки, названия карточки (игры)  и ценник
+        // const elemPrice =
+        // console.log(elemPrice)
+        elementContent.append(imgElementContent, this.createNewElement('div', 'product_title', '', `${item.title}`), this.createElementListener(item)/*, this.createNewElement('div', 'product_price button', '', `${item.price} руб`) */); // добавление картинки, названия карточки (игры)  и ценник
         const productParams = this.createNewElement('div', 'product_params'); // создание контейнера для добавления параметров
         // наполнение контейнера параметрами
         // рейтинг
@@ -320,8 +323,7 @@ class MainPage extends Page {
         this.mainContent.append(element); // добавление на страницу
       });
     }
-      return this.mainContainer;
-    
+    return this.mainContainer;
   }
 }
 

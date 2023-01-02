@@ -7,20 +7,24 @@ import SearchProducts from '../main-search/mainSearch';
 import nouislider from '../../nouislider';
 import ErrorPage from '../error/error';
 import products from '../../products.json';
+import Cart from '../../core/cart';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
+  private cart: Cart;
 
   static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
     document.querySelector('.two-columns')?.remove();
     console.log(idPage)
 
-    let page: Page | null | Description = null;
+    let page: Page | null | Description | Cart = null;
     if (arrayId?.includes(String(idPage))) {
       page = new CardDescriptionPage(String(idPage)); // тут должен вернуться html элемент готовой карточки
     } else if (idPage === 'mainPage') {
       page = new MainPage(idPage);
+    } else if (idPage === 'cart') {
+      page = new Cart();
     } else {
       page = new ErrorPage('error');
     }
@@ -40,6 +44,7 @@ class App {
   constructor () {
     this.mainPage = new MainPage('mainPage');
     this.searchProducts = new SearchProducts();
+    this.cart = new Cart();
   }
 
   private enableRouteChange (): void {
@@ -50,15 +55,17 @@ class App {
   }
 
   run (): void {
-    this.mainPage.render(products, 'mainPage');
+    window.location.hash = '';
     this.searchProducts.searchProduct();
-    nouislider();
+    // this.mainPage.render(products, 'mainPage');
+    // nouislider();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
     //   document.getElementById(item)?.addEventListener('click', () => {
     //     App.newRenderPage(item); // вроде уже не надо, но пускай будет
     //   })
     // })
     this.enableRouteChange();
+    window.location.hash = '#mainPage';
   }
 }
 
