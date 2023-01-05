@@ -88,4 +88,3 @@ class FilterProducts {
 }
 
 export default FilterProducts;
-
