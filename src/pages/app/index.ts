@@ -8,10 +8,12 @@ import nouislider from '../../nouislider';
 import ErrorPage from '../error/error';
 import products from '../../products.json';
 import Cart from '../../core/cart';
+import FilterProducts from '../main-search/mainFilter';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
   private cart: Cart;
+  // private filterProducts: FilterProducts;
 
   static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
@@ -45,6 +47,7 @@ class App {
     this.mainPage = new MainPage('mainPage');
     this.searchProducts = new SearchProducts();
     this.cart = new Cart();
+    // this.filterProducts = new FilterProducts('filter');
   }
 
   private enableRouteChange (): void {
@@ -57,6 +60,7 @@ class App {
   run (): void {
     window.location.hash = '';
     this.searchProducts.searchProduct();
+    // this.filterProducts.checkOption();
     // this.mainPage.render(products, 'mainPage');
     // nouislider();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует

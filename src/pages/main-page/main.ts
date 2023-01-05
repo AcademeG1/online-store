@@ -1,5 +1,6 @@
 import Page from '../../core/page';
 import products from '../../products.json';
+import FilterProducts from '../main-search/mainFilter';
 
 export const arrayId: string[] = [];
 
@@ -23,6 +24,7 @@ class MainPage extends Page {
   private mainContainer: HTMLElement;
   private mainContent: HTMLElement;
   private footer: HTMLElement;
+  private filter: FilterProducts;
 
   constructor (id: string) {
     super(id);
@@ -30,6 +32,7 @@ class MainPage extends Page {
     this.mainContent = document.body; // это просто присвоение на приколе, ниже переназначено на .main__content
     this.footer = document.querySelector('.footer') as HTMLElement;
     // this.cart = new Cart();
+    this.filter = new FilterProducts('filter');
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -322,6 +325,7 @@ class MainPage extends Page {
         // console.log(element)
         this.mainContent.append(element); // добавление на страницу
       });
+      this.filter.checkOption();
     }
     return this.mainContainer;
   }
