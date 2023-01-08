@@ -25,7 +25,6 @@ class MainPage extends Page {
   private mainContent: HTMLElement;
   private footer: HTMLElement;
 
-
   constructor (id: string) {
     super(id);
     this.mainContainer = document.querySelector('.main') as HTMLElement;

@@ -4,7 +4,7 @@ import Page from '../../core/page';
 import Description from '../../core/description';
 import CardDescriptionPage from '../card-description/card-description';
 import SearchProducts from '../main-search/mainSearch';
-import nouislider from '../../nouislider';
+// import nouislider from '../../nouislider';
 import ErrorPage from '../error/error';
 import products from '../../products.json';
 import Cart from '../../core/cart';
@@ -38,11 +38,12 @@ class App {
       const pageHTML = page.render(products, 'mainPage');
       try {
         document.querySelector('.header')?.after(pageHTML);
-        nouislider();
+        // nouislider();
         if (idPage === 'mainPage') {
           const met = new FilterProducts('filter');
           met.checkOption();
           met.getSortOption('sort');
+          met.noSlider();
         }
       } catch (all) {
         console.log('Все под контролем) отработал и хорошо)')
@@ -77,7 +78,6 @@ class App {
     // })
     this.enableRouteChange();
     window.location.hash = '#mainPage';
-    
   }
 }
 
