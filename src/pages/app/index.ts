@@ -12,14 +12,14 @@ import FilterProducts from '../main-search/mainFilter';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
+  private filterProducts: FilterProducts;
   private cart: Cart;
-  // private filterProducts: FilterProducts;
 
   static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
     document.querySelector('.two-columns')?.remove();
-    console.log(idPage)
-
+    // console.log(idPage)
+    // filterProducts.checkOption();
     let page: Page | null | Description | Cart = null;
     if (arrayId?.includes(String(idPage))) {
       page = new CardDescriptionPage(String(idPage)); // тут должен вернуться html элемент готовой карточки
@@ -33,10 +33,14 @@ class App {
 
     if (page) {
       window.location.hash = `#${idPage}`;
-      const pageHTML = page.render(products, 'mainPage') as HTMLElement;
+      const pageHTML = page.render(products, 'mainPage');
       try {
         document.querySelector('.header')?.after(pageHTML);
         nouislider();
+        if (idPage === 'mainPage') {
+          const met = new FilterProducts('filter');
+          met.checkOption();
+        }
       } catch (all) {
         console.log('Все под контролем) отработал и хорошо)')
       }
@@ -47,7 +51,7 @@ class App {
     this.mainPage = new MainPage('mainPage');
     this.searchProducts = new SearchProducts();
     this.cart = new Cart();
-    // this.filterProducts = new FilterProducts('filter');
+    this.filterProducts = new FilterProducts('filter');
   }
 
   private enableRouteChange (): void {
@@ -60,7 +64,6 @@ class App {
   run (): void {
     window.location.hash = '';
     this.searchProducts.searchProduct();
-    // this.filterProducts.checkOption();
     // this.mainPage.render(products, 'mainPage');
     // nouislider();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
@@ -70,6 +73,7 @@ class App {
     // })
     this.enableRouteChange();
     window.location.hash = '#mainPage';
+    
   }
 }
 

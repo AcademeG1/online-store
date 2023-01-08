@@ -1,6 +1,6 @@
 import Page from '../../core/page';
 import products from '../../products.json';
-import FilterProducts from '../main-search/mainFilter';
+// import FilterProducts from '../main-search/mainFilter';
 
 export const arrayId: string[] = [];
 
@@ -24,7 +24,7 @@ class MainPage extends Page {
   private mainContainer: HTMLElement;
   private mainContent: HTMLElement;
   private footer: HTMLElement;
-  private filter: FilterProducts;
+  // private filter: FilterProducts;
 
   constructor (id: string) {
     super(id);
@@ -32,7 +32,7 @@ class MainPage extends Page {
     this.mainContent = document.body; // это просто присвоение на приколе, ниже переназначено на .main__content
     this.footer = document.querySelector('.footer') as HTMLElement;
     // this.cart = new Cart();
-    this.filter = new FilterProducts('filter');
+    // this.filter = new FilterProducts('filter');
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -55,6 +55,7 @@ class MainPage extends Page {
     const search = document.querySelector('.header__search') as HTMLElement; // показать поиск
     search.style.display = 'flex'; // показать поиск
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
+    // this.render(this.filter.checkOption(), 'search');
     if (arrElementRender.length === 0) {
       const none = document.createElement('div');
       none.style.textAlign = 'center';
@@ -154,54 +155,6 @@ class MainPage extends Page {
                       <label for="travel">Игры в дорогу</label>
                     </div>
                   </div>
-                  <!--Фильтрация по возрасту-->
-                  <div class="filter-section filter-section_old" id="old">
-                    <div class="filter-section_title">Возраст</div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="old" id="5" />
-                      <label for="5">до 5 лет</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="old" id="7" />
-                      <label for="7">до 7 лет</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="old" id="12" />
-                      <label for="12">до 12 лет</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="old" id="15" />
-                      <label for="15">до 15 лет</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="old" id="16" />
-                      <label for="16">более 16 лет</label>
-                    </div>
-                  </div>
-                  <!--Фильтрация по продолжительности-->
-                  <div class="filter-section filter-section_duration" id="duration">
-                    <div class="filter-section_title">Продолжительность</div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="duration" id="15min" />
-                      <label for="15min">до 15 минут</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="duration" id="30min" />
-                      <label for="30min">до 30 минут</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="duration" id="60min" />
-                      <label for="60min">до 60 минут</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="duration" id="120min" />
-                      <label for="120min">до 120 минут</label>
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="duration" id="2hour" />
-                      <label for="2hour">от 2 часов</label>
-                    </div>
-                  </div>
                   <!--Фильтрация по брендам-->
                   <div class="filter-section filter-section_brand" id="brand">
                     <div class="filter-section_title">Производитель</div>
@@ -236,6 +189,10 @@ class MainPage extends Page {
                     <div class="filter-option">
                       <input type="checkbox" name="brand" id="10kingdom" />
                       <label for="10kingdom">Десятое королевство</label>
+                    </div>
+                    <div class="filter-option">
+                      <input type="checkbox" name="brand" id="zvezda" />
+                      <label for="zvezda">Zvezda</label>
                     </div>
                   </div>
                   <!--Фильтрация по количеству игроков-->
@@ -325,7 +282,7 @@ class MainPage extends Page {
         // console.log(element)
         this.mainContent.append(element); // добавление на страницу
       });
-      this.filter.checkOption();
+      // this.filter.checkOption();
     }
     return this.mainContainer;
   }

@@ -1,89 +1,99 @@
 import products from '../../products.json';
-import { Product } from '../main-page/main';
+import MainPage, { Product } from '../main-page/main';
 
 class FilterProducts {
-  private readonly id: string;
-  private readonly FilterCheck: Product[];
+  private id: string;
+  private filterCheckBrand: HTMLInputElement[];
+  private filterCheckCategory: HTMLInputElement[];
+  private mainPage: MainPage;
 
   constructor (id: string) {
     this.id = id;
-    this.FilterCheck = [];
+    this.filterCheckBrand = [];
+    this.filterCheckCategory = [];
+    this.mainPage = new MainPage('search');
   }
 
   checkOption (): void {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    console.log('zashol')
+    const checkboxesBrand = Array.from(document.getElementsByName('brand')) as HTMLInputElement[];
+    const checkboxesCategory = Array.from(document.getElementsByName('category')) as HTMLInputElement[];
+    console.log(checkboxesCategory)
+    checkboxesCategory.forEach(check => {
+      check.addEventListener('change', () => {
+        this.filterCheckCategory = checkboxesCategory.filter(item => item.checked);
+        this.getFilter();
+      })
+    })
 
-    checkboxes.forEach((check) => {
-      check.addEventListener('change', (event) => {
-        const id = check.getAttribute('id') as string;
-        const name = check.getAttribute('name') as string;
-
-        console.log('имя', name)
-        console.log('айди', id);
-
-        // получаю значение выбранного чека
-        const labels = document.querySelectorAll('label');
-        labels.forEach((label) => {
-          if (label.htmlFor === id) {
-            const labelName = label.textContent?.toLowerCase() as string;
-            console.log(labelName);
-            this.getCheck(id, name, products, labelName);
-          }
-        })
-        this.dublicateCheck(this.FilterCheck);
-        // this.filterProd(this.FilterCheck, name);
+    checkboxesBrand.forEach(check => {
+      check.addEventListener('change', () => {
+        this.filterCheckBrand = checkboxesBrand.filter(item => item.checked);
+        this.getFilter();
       })
     })
   }
 
-  getCheck (id: string, nameCategory: string, arr: Product[], labelName: string): void {
-    arr.forEach((product) => {
-      const categoryName = product.category.toLowerCase();
-      const brandName = product.brand.toLowerCase();
-      const ageValue = product.old;
-      const timeValue = product.duration;
-
-      if (nameCategory === 'category') {
-        if (labelName === categoryName) {
-          this.FilterCheck.push(product);
-        }
-      } else if (nameCategory === 'old') {
-        if ((labelName === 'до 5 лет' && ageValue <= 5) ||
-            (labelName === 'до 7 лет' && ageValue <= 7) ||
-            (labelName === 'до 12 лет' && ageValue <= 12) ||
-            (labelName === 'до 15 лет' && ageValue <= 15) ||
-            (labelName === 'более 16 лет' && ageValue > 15)) {
-          this.FilterCheck.push(product);
-        } console.log(nameCategory)
-      } else if (nameCategory === 'duration') {
-        if ((labelName === 'до 15 минут' && timeValue <= 15) ||
-            (labelName === 'до 30 минут' && timeValue <= 30) ||
-            (labelName === 'до 60 минут' && timeValue <= 60) ||
-            (labelName === 'до 120 минут' && timeValue <= 120) ||
-            (labelName === 'от 2 часов' && timeValue > 120)) {
-          this.FilterCheck.push(product);
-        }
-      } else if (nameCategory === 'brand') {
-        if (labelName === brandName) {
-          this.FilterCheck.push(product);
-        }
-      }
+  getFilter (): Product[] {
+    const arrCheckedRus: string[] = [];
+    const arrChecked = [...this.filterCheckBrand, ...this.filterCheckCategory];
+    console.log('arrChecked');
+    console.log(arrChecked);
+    arrChecked.forEach(item => {
+      arrCheckedRus.push(this.getCurrentLabelCategory(item.id));
+      arrCheckedRus.push(this.getCurrentLabelBrand(item.id));
     })
+
+    let arr: Product[] = [];
+    if (this.filterCheckCategory.length > 0) {
+      arr = products.filter(item => arrCheckedRus.includes(item.category));
+    }
+
+    if (this.filterCheckBrand.length > 0) {
+      if (this.filterCheckCategory.length === 0) {
+        arr = products.filter(item => arrCheckedRus.includes(item.brand));
+      }
+      console.log(arr.filter(item => arrCheckedRus.includes(item.brand)))
+      this.mainPage.render(arr.filter(item => arrCheckedRus.includes(item.brand)), 'search');
+      return arr.filter(item => arrCheckedRus.includes(item.brand));
+    }
+
+    if (this.filterCheckBrand.length === 0 && this.filterCheckCategory.length === 0) {
+      this.mainPage.render(products, 'search');
+      return products
+    }
+
+    console.log(arr)
+    this.mainPage.render(arr, 'search');
+    return arr
   }
 
-  dublicateCheck (arr: Product[]): Product[] {
-    const uniqSet = new Set(arr);
-    console.log([...uniqSet]);
-    return [...uniqSet];
+  getCurrentLabelCategory (str: string): string {
+    switch (str) {
+      case 'adventures': return 'Приключения';
+      case 'cards': return 'Карточная';
+      case 'logic': return 'Головоломки';
+      case 'strategy': return 'Стратегические игры';
+      case 'economy': return 'Экономические игры';
+      case 'detective': return 'Детективные игры';
+      case 'travel': return 'Игры в дорогу';
+      default: return 'Нет такой категории'
+    }
   }
 
-  filterProd (arr: Product[], nameCategory: string): Product[] {
-    // arr.filter((product) =>);
-    // .filter((product) => )
-    // .filter((product) => )
-    // .filter((product) =>)
-    console.log(arr);
-    return arr;
+  getCurrentLabelBrand (str: string): string {
+    switch (str) {
+      case 'hw': return 'Hobby World';
+      case 'magellan': return 'Magellan';
+      case 'gaga': return 'GaGa Games';
+      case 'mattel': return 'Mattel';
+      case 'playlab': return 'PlayLab';
+      case 'piatnik': return 'Piatnik';
+      case 'rightgames': return 'Правильные игры';
+      case '10kingdom': return 'Десятое королевство';
+      case 'zvezda': return 'Zvezda';
+      default: return 'Нет такого бренда'
+    }
   }
 }
 
