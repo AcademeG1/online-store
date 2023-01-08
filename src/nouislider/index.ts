@@ -1,4 +1,6 @@
 import * as noUiSlider from '../../node_modules/nouislider';
+import products from '../products.json';
+import MainPage, { Product } from '../pages/main-page/main';
 
 /* noUiSlider на цену */
 function noSlider (): void {
@@ -28,12 +30,14 @@ function noSlider (): void {
   if (sliderPrice instanceof HTMLDivElement) {
     sliderPr.on('update', (values, handler) => {
       const allValues: number[] | string[] = [];
-      console.log(values[handler].toString());
+      // console.log(values[handler].toString());
       allValues[handler] = values[handler].toString();
       rangePriceFrom.value = values[0].toString()
       rangePriceTo.value = values[1].toString()
     })
   }
+
+
 
   /* noUiSlider на количесвто товара */
 
@@ -62,7 +66,7 @@ function noSlider (): void {
   if (sliderAmount instanceof HTMLDivElement) {
     sliderAm.on('update', (values, handler) => {
       const allValues: number[] | string[] = [];
-      console.log(values[handler].toString());
+      // console.log(values[handler].toString());
       allValues[handler] = values[handler].toString();
       rangeAmountFrom.value = values[0].toString()
       rangeAmountTo.value = values[1].toString()

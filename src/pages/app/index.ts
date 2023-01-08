@@ -9,10 +9,12 @@ import ErrorPage from '../error/error';
 import products from '../../products.json';
 import Cart from '../../core/cart';
 import FilterProducts from '../main-search/mainFilter';
+import SortProducts from '../main-search/mainSort';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
   private filterProducts: FilterProducts;
+  private sortProducts: SortProducts;
   private cart: Cart;
 
   static newRenderPage (idPage: string): void {
@@ -40,6 +42,8 @@ class App {
         if (idPage === 'mainPage') {
           const met = new FilterProducts('filter');
           met.checkOption();
+          const sort = new SortProducts();
+          sort.getSortOption('sort');
         }
       } catch (all) {
         console.log('Все под контролем) отработал и хорошо)')
@@ -52,6 +56,7 @@ class App {
     this.searchProducts = new SearchProducts();
     this.cart = new Cart();
     this.filterProducts = new FilterProducts('filter');
+    this.sortProducts = new SortProducts();
   }
 
   private enableRouteChange (): void {

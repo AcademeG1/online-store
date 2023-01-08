@@ -24,15 +24,13 @@ class MainPage extends Page {
   private mainContainer: HTMLElement;
   private mainContent: HTMLElement;
   private footer: HTMLElement;
-  // private filter: FilterProducts;
+
 
   constructor (id: string) {
     super(id);
     this.mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContent = document.body; // это просто присвоение на приколе, ниже переназначено на .main__content
     this.footer = document.querySelector('.footer') as HTMLElement;
-    // this.cart = new Cart();
-    // this.filter = new FilterProducts('filter');
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -237,7 +235,7 @@ class MainPage extends Page {
         const elementContent = this.createNewElement('div', 'product__item_content'); // создание оболочки элементов контейнера карты
         // const imgElementContent = this.createNewElement('div', 'product_image'); // создание оболочки для картинки
         const imgElementContent = document.createElement('a'); // создание контейнера ссылки картинки
-        imgElementContent.href = `#${index}product`;
+        imgElementContent.href = `#${item.id}product`;
         imgElementContent.className = 'product_image';
         const img = document.createElement('img'); // создание картинки
         img.className = `${index}product`; // класс для картинки
@@ -269,7 +267,7 @@ class MainPage extends Page {
         // количество игроков
         const players = this.createNewElement('div', 'params__item players');
         const playersImg = document.createElement('img');
-        playersImg.src = './img/icon-hourglass.png';
+        playersImg.src = './img/icon-players.png';
         playersImg.width = 20;
         playersImg.height = 20;
         playersImg.alt = 'Duration';
@@ -279,10 +277,8 @@ class MainPage extends Page {
         productParams.append(raiting, duration, players);
         elementContent.append(productParams); // добавление в карточку, контейнера с параметрами
         element.append(elementContent); // добавление оболочки всех элементов со всеми элементами в главный элемент
-        // console.log(element)
         this.mainContent.append(element); // добавление на страницу
       });
-      // this.filter.checkOption();
     }
     return this.mainContainer;
   }

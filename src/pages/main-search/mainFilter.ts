@@ -15,10 +15,9 @@ class FilterProducts {
   }
 
   checkOption (): void {
-    console.log('zashol')
     const checkboxesBrand = Array.from(document.getElementsByName('brand')) as HTMLInputElement[];
     const checkboxesCategory = Array.from(document.getElementsByName('category')) as HTMLInputElement[];
-    console.log(checkboxesCategory)
+
     checkboxesCategory.forEach(check => {
       check.addEventListener('change', () => {
         this.filterCheckCategory = checkboxesCategory.filter(item => item.checked);
@@ -37,8 +36,7 @@ class FilterProducts {
   getFilter (): Product[] {
     const arrCheckedRus: string[] = [];
     const arrChecked = [...this.filterCheckBrand, ...this.filterCheckCategory];
-    console.log('arrChecked');
-    console.log(arrChecked);
+
     arrChecked.forEach(item => {
       arrCheckedRus.push(this.getCurrentLabelCategory(item.id));
       arrCheckedRus.push(this.getCurrentLabelBrand(item.id));
@@ -63,7 +61,6 @@ class FilterProducts {
       return products
     }
 
-    console.log(arr)
     this.mainPage.render(arr, 'search');
     return arr
   }
