@@ -6,12 +6,14 @@ class FilterProducts {
   private filterCheckBrand: HTMLInputElement[];
   private filterCheckCategory: HTMLInputElement[];
   private mainPage: MainPage;
+  private arrSort: Product[];
 
   constructor (id: string) {
     this.id = id;
     this.filterCheckBrand = [];
     this.filterCheckCategory = [];
     this.mainPage = new MainPage('search');
+    this.arrSort = [];
   }
 
   checkOption (): void {
@@ -31,6 +33,67 @@ class FilterProducts {
         this.getFilter();
       })
     })
+  }
+
+  getSortOption (id: string): void {
+    const selectOption = document.getElementById(id) as HTMLSelectElement;
+    selectOption.addEventListener('change', (event) => {
+      console.log('select', selectOption.value);
+      if (this.arrSort.length === 0) {
+        this.arrSort = products;
+      }
+      if (selectOption.value === 'raiting') {
+        this.sortByRaiting(this.arrSort);
+      }
+      if (selectOption.value === 'min-price') {
+        this.sortByMinPrice(this.arrSort);
+      }
+      if (selectOption.value === 'max-price') {
+        this.sortByMaxPrice(this.arrSort);
+      }
+      if (selectOption.value === 'firstname') {
+        this.sortByFirstName(this.arrSort);
+      }
+      if (selectOption.value === 'lastname') {
+        this.sortByLastName(this.arrSort);
+      }
+    })
+  }
+
+  sortByFirstName (arr: Product[]): void {
+    const sorted = arr.sort((a, b) => a.title > b.title ? 1 : -1);
+    console.log('name', sorted);
+    this.mainPage.render(sorted, 'search');
+  }
+
+  sortByLastName (arr: Product[]): void {
+    const sorted = arr.sort((a, b) => a.title < b.title ? 1 : -1);
+    console.log('lastname', sorted);
+    this.mainPage.render(sorted, 'search');
+  }
+
+  sortByRaiting (arr: Product[]): void {
+    const sorted = arr.sort((a, b) => {
+      return b.rating - a.rating;
+    });
+    console.log('raiting', sorted);
+    this.mainPage.render(sorted, 'search');
+  }
+
+  sortByMaxPrice (arr: Product[]): void {
+    const sorted = arr.sort((a, b) => {
+      return a.price - b.price;
+    });
+    console.log('maxprice', sorted);
+    this.mainPage.render(sorted, 'search');
+  }
+
+  sortByMinPrice (arr: Product[]): void {
+    const sorted = arr.sort((a, b) => {
+      return b.price - a.price;
+    });
+    console.log('minprice', sorted);
+    this.mainPage.render(sorted, 'search');
   }
 
   getFilter (): Product[] {
@@ -53,14 +116,16 @@ class FilterProducts {
       }
       console.log(arr.filter(item => arrCheckedRus.includes(item.brand)))
       this.mainPage.render(arr.filter(item => arrCheckedRus.includes(item.brand)), 'search');
+      this.arrSort = arr;
       return arr.filter(item => arrCheckedRus.includes(item.brand));
     }
 
     if (this.filterCheckBrand.length === 0 && this.filterCheckCategory.length === 0) {
       this.mainPage.render(products, 'search');
+      this.arrSort = products;
       return products
     }
-
+    this.arrSort = arr;
     this.mainPage.render(arr, 'search');
     return arr
   }

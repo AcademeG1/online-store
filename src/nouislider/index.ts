@@ -34,21 +34,27 @@ function noSlider (): void {
       allValues[handler] = values[handler].toString();
       rangePriceFrom.value = values[0].toString()
       rangePriceTo.value = values[1].toString()
+
+      const arrPrice: string[] = [];
+      products.forEach(element => {
+        if (element.price >= Number(rangePriceFrom.value) && element.price <= Number(rangePriceTo.value)) {
+          arrPrice.push(`${element.price}`, `${element.title}`);
+        }
+      })
+      console.log('price', arrPrice);
     })
   }
-
-
 
   /* noUiSlider на количесвто товара */
 
   const sliderAmount = document.getElementById('slider-amount') as HTMLDivElement;
 
   const sliderAm = noUiSlider.create(sliderAmount, {
-    start: [0, 99],
+    start: [0, 16],
     connect: true,
     range: {
       min: 0,
-      max: 99
+      max: 16
     },
     tooltips: false,
     format: {
@@ -68,8 +74,16 @@ function noSlider (): void {
       const allValues: number[] | string[] = [];
       // console.log(values[handler].toString());
       allValues[handler] = values[handler].toString();
-      rangeAmountFrom.value = values[0].toString()
-      rangeAmountTo.value = values[1].toString()
+      rangeAmountFrom.value = values[0].toString();
+      rangeAmountTo.value = values[1].toString();
+
+      const arrAmount: string[] = [];
+      products.forEach(element => {
+        if (element.amount >= Number(rangeAmountFrom.value) && element.amount <= Number(rangeAmountTo.value)) {
+          arrAmount.push(`${element.amount}`, `${element.title}`);
+        }
+      })
+      console.log('amount', arrAmount);
     })
   }
 }
