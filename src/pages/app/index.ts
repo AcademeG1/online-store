@@ -9,6 +9,7 @@ import ErrorPage from '../error/error';
 import products from '../../products.json';
 import Cart from '../../core/cart';
 import FilterProducts from '../main-search/mainFilter';
+import ModalFrame from '../cart-modal/cart-modal';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;

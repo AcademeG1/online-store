@@ -83,6 +83,7 @@ class MainPage extends Page {
             </div>
             <div class="sort-info">
               <h2>Настольные игры</h2>
+              <div class="counterItem"></div>
               <!--Сортировка-->
               <div class="sort-view">
                 <span сlass="sort-title">Сортировать:</span>
@@ -284,6 +285,9 @@ class MainPage extends Page {
         })
       });
     }
+    const sortInfo = document.querySelector('.counterItem') as HTMLElement;
+    const pc = document.querySelector('.products__container') as HTMLElement;
+    sortInfo.innerText = `Всего игр: ${pc.childNodes.length}`;
     return this.mainContainer;
   }
 }
