@@ -4,32 +4,47 @@ import Page from '../../core/page';
 import Description from '../../core/description';
 import CardDescriptionPage from '../card-description/card-description';
 import SearchProducts from '../main-search/mainSearch';
-import nouislider from '../../nouislider';
+// import nouislider from '../../nouislider';
 import ErrorPage from '../error/error';
+import products from '../../products.json';
+import Cart from '../../core/cart';
+import FilterProducts from '../main-search/mainFilter';
+import SortProducts from '../main-search/mainSort';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;
+  private filterProducts: FilterProducts;
+  // private sortProducts: SortProducts;
+  private cart: Cart;
 
   static newRenderPage (idPage: string): void {
     document.querySelector('.sort-info')?.remove();
     document.querySelector('.two-columns')?.remove();
-    console.log(idPage)
-
-    let page: Page | null | Description = null;
+    // console.log(idPage)
+    // filterProducts.checkOption();
+    let page: Page | null | Description | Cart = null;
     if (arrayId?.includes(String(idPage))) {
       page = new CardDescriptionPage(String(idPage)); // тут должен вернуться html элемент готовой карточки
     } else if (idPage === 'mainPage') {
       page = new MainPage(idPage);
+    } else if (idPage === 'cart') {
+      page = new Cart();
     } else {
       page = new ErrorPage('error');
     }
 
     if (page) {
       window.location.hash = `#${idPage}`;
-      const pageHTML = page.render() as HTMLElement;
+      const pageHTML = page.render(products, 'mainPage');
       try {
         document.querySelector('.header')?.after(pageHTML);
-        nouislider();
+        // nouislider();
+        if (idPage === 'mainPage') {
+          const met = new FilterProducts('filter');
+          met.checkOption();
+          met.getSortOption('sort');
+          met.noSlider();
+        }
       } catch (all) {
         console.log('Все под контролем) отработал и хорошо)')
       }
@@ -37,8 +52,11 @@ class App {
   }
 
   constructor () {
-    this.mainPage = new MainPage('main-page');
+    this.mainPage = new MainPage('mainPage');
     this.searchProducts = new SearchProducts();
+    this.cart = new Cart();
+    this.filterProducts = new FilterProducts('filter');
+    // this.sortProducts = new SortProducts();
   }
 
   private enableRouteChange (): void {
@@ -49,15 +67,17 @@ class App {
   }
 
   run (): void {
-    this.mainPage.render();
+    window.location.hash = '';
     this.searchProducts.searchProduct();
-    nouislider();
+    // this.mainPage.render(products, 'mainPage');
+    // nouislider();
     // arrayId.forEach((item, index) => { // функция добавления ссылок каждому элементу, нужно куда-то перенести, потому что при повторном нажатии, он не генерирует
     //   document.getElementById(item)?.addEventListener('click', () => {
     //     App.newRenderPage(item); // вроде уже не надо, но пускай будет
     //   })
     // })
     this.enableRouteChange();
+    window.location.hash = '#mainPage';
   }
 }
 

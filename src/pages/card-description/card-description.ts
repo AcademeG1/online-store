@@ -2,14 +2,14 @@ import Description from '../../core/description';
 import products from '../../products.json';
 
 class CardDescriptionPage extends Description {
-  private card: HTMLElement;
-  private ids: number;
-  private itemTitle: HTMLElement;
-  private header: HTMLElement;
-  private body: HTMLElement;
-  private footer: HTMLElement;
-  private main: HTMLElement;
-  private mainWrap: HTMLElement;
+  private readonly card: HTMLElement;
+  private readonly ids: number;
+  private readonly itemTitle: HTMLElement;
+  private readonly header: HTMLElement;
+  private readonly body: HTMLElement;
+  private readonly footer: HTMLElement;
+  private readonly main: HTMLElement;
+  private readonly mainWrap: HTMLElement;
 
   constructor (ids: string) {
     super(ids);
@@ -31,39 +31,65 @@ class CardDescriptionPage extends Description {
     this.body.append(this.header); // добавление сохраненного хедера на страницу
     this.mainWrap.innerHTML = ''; // очистка всего что в мэин
     this.mainWrap.append(this.card); // добавление строки роутинга
+
     // наполнение страницы нужными элементами (переделать под цикл в будущем)
-    this.mainWrap.append(this.createElement('span', `card${this.ids} titleC`, `${products.filter(elem => elem.id === this.ids)[0].title}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Описание: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} descriptionC`, `${products.filter(elem => elem.id === this.ids)[0].description}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Цена: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} priceC`, `${products.filter(elem => elem.id === this.ids)[0].price}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Рейтинг: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} ratingC`, `${products.filter(elem => elem.id === this.ids)[0].rating}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Производитель: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} brandC`, `${products.filter(elem => elem.id === this.ids)[0].brand}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Категория: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} categoryC`, `${products.filter(elem => elem.id === this.ids)[0].category}`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Время игры: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} durationC`, `${products.filter(elem => elem.id === this.ids)[0].duration} минут`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Количество игроков: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} amountC`, `${products.filter(elem => elem.id === this.ids)[0].amount} чел.`));
-    this.mainWrap.append(document.createElement('br'));
-    this.mainWrap.append(document.createElement('span').textContent = 'Возраст: ');
-    this.mainWrap.append(this.createElement('span', `card${this.ids} oldC`, `${products.filter(elem => elem.id === this.ids)[0].old} лет`));
-    this.mainWrap.append(document.createElement('br'));
-    products.filter(elem => elem.id === this.ids)[0].images.forEach((item) => {
+    // добавляем название игры
+    this.mainWrap.append(this.createElement('div', `card${this.ids} product_title_description`, `${products.filter(elem => elem.id === this.ids)[0].title}`));
+    this.mainWrap.append(this.createElement('div', `card${this.ids} product_item_description`, `${products.filter(elem => elem.id === this.ids)[0].description}`));
+    // добавляем основной контейнер для наполнения
+    const container = document.createElement('div') as HTMLElement;
+    container.className = 'product_container_description';
+    this.mainWrap.append(container);
+
+    // добавление картинок
+    const img = document.createElement('div') as HTMLElement;
+    img.className = 'product_image_description';
+    container.append(img);
+
+    const anotherImg = document.createElement('div') as HTMLElement;
+    anotherImg.className = 'product_another-image_description';
+    img.append(anotherImg);
+
+    const mainImg = document.createElement('div') as HTMLElement;
+    mainImg.className = 'product_main-image_description';
+    img.append(mainImg);
+
+    products.filter(elem => elem.id === this.ids)[0].images.forEach((item, index) => {
       const image = document.createElement('img');
       image.src = item;
       image.className = `imageCard${this.ids}`
-      this.mainWrap.append(image);
+      if (index === 0) {
+        mainImg.append(image);
+      } else {
+        anotherImg.append(image);
+      }
     });
+
+    // добавляем контейнер для основной информации об игре
+    const info = document.createElement('div') as HTMLElement;
+    info.className = 'product_info_description';
+    container.append(info);
+
+    // info.append(this.createElement('div', `card${this.ids} product_item_description`, `Описание: ${products.filter(elem => elem.id === this.ids)[0].description}`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Рейтинг: ${products.filter(elem => elem.id === this.ids)[0].rating}`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Производитель: ${products.filter(elem => elem.id === this.ids)[0].brand}`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Категория: ${products.filter(elem => elem.id === this.ids)[0].category}`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Продолжительность: ${products.filter(elem => elem.id === this.ids)[0].duration} минут`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Количество игроков: ${products.filter(elem => elem.id === this.ids)[0].amount} чел.`));
+    info.append(this.createElement('div', `card${this.ids} product_item_description`, `Возраст: ${products.filter(elem => elem.id === this.ids)[0].old} лет`));
+
+    // добавляем контейнер для цены товара и кнопки добавить в корзину
+    const price = document.createElement('div') as HTMLElement;
+    price.className = 'product_price_description';
+    container.append(price);
+    price.append(this.createElement('div', `card${this.ids} product_price_description`, `Цена: ${products.filter(elem => elem.id === this.ids)[0].price} руб.`));
+
+    // добавляем кнопки корзины
+    const btn = document.createElement('button') as HTMLElement;
+    btn.className = 'button product_button_description';
+    btn.innerText = 'Добавить в корзину';
+    price.append(btn);
+
     // добавление названия в роутинг на странице
     this.itemTitle.innerText = products.filter(elem => elem.id === this.ids)[0].title; // создание в ветке роутинга, нового названия
     this.body.append(this.main); // добавление мэин в боди
