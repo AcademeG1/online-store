@@ -1,13 +1,17 @@
-// .modal__overlay {
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   left: 0;
-//   bottom: 0;
-//   background-color: rgba(0, 0, 0, 0.5);
-// }
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 .modal__window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%, -50%);
   width: 50%;
   margin: 0 auto;
   background-color: rgb(127, 182, 189);

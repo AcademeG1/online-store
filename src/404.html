@@ -6,6 +6,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BoardGameStore</title>
     <link rel="shortcut icon" href="/img/icon-dices.png" type="image/png">
+    <style>
+      html {
+        margin: 0 auto;
+      }
+      .wrapper {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+        padding-bottom: 5px;
+        font-size: 18px;
+       }
+
+      .header {
+        background-color: rgb(23, 110, 122);
+      }
+
+      .header__wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 15px 10px;
+      }
+      .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        font-size: 32px;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif ;
+        font-weight: bold;
+      }
+
+      .footer {
+        background-color: rgb(23, 110, 122);
+        font-family: Arial, Helvetica, sans-serif ;
+        font-weight: bold;
+      }
+
+      .footer__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+      }
+
+      .github__icon {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      .github__links {
+         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      body {
+        background: grey;
+        margin: 0 auto;
+        height: 100vh;
+      }
+      .header__logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: black;
+        cursor: pointer;
+      }
+      img {
+        padding-right: 10px;
+      }
+      h1 {
+        margin: 0;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif ;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <header class="header">
@@ -14,35 +97,6 @@
           <img src="/img/icon-dices.png" alt="Logo" width="70" height="70" />
           <h1><span class="title-letter">B</span>oard <span class="title-letter">G</span>ames <span class="title-letter">S</span>tore</h1>
         </a>
-        <!--Поисковая строка-->
-        <div class="header__search">
-          <!-- <form action="header__search_form"> -->
-            <input
-              id="searchBar"
-              type="search"
-              class="header__search_input"
-              name="keyword"
-              placeholder="Что ищем?"
-              autocomplete="off"
-            />
-            <button class="header__search_submit" type="submit">
-              <span class="header__search_icon">
-                <img src="/img/icon-search.png" alt="Submit" width="20" height="20">
-              </span>
-            </button>
-          <!-- </form> -->
-        </div>
-        <!--Корзина-->
-        <div class="header__shoping-cart" id="shoping-cart">
-          <div class="header__shoping-cart_info">
-            <span class="header__shoping-cart_icon">
-              <img src="/img/icon-shopping-cart.png" alt="Shpping Cart" width="20" height="20">
-            </span>
-            <span class="header__shoping-cart_count">0</span>
-            <span class="header__shoping-cart_label">Корзина</span>
-          </div>
-        </div>
-      </div>
     </header>
     <main class="main">
      Ошибка 404! Страница не найдена!

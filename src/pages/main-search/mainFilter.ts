@@ -161,6 +161,7 @@ class FilterProducts {
 // g
 
   noSlider (): void {
+    this.arrSort = products;
     const sliderPrice = document.getElementById('slider-price') as HTMLDivElement;
 
     const sliderPr = noUiSlider.create(sliderPrice, {
@@ -198,7 +199,9 @@ class FilterProducts {
           }
         })
         // this.arrSort = arrPrice;
-        this.mainPage.render(arrPrice, 'search')
+        if (arrPrice.length !== 0) {
+          this.mainPage.render(arrPrice, 'search')
+        }
         // console.log('price', arrPrice);
       })
     }
@@ -242,7 +245,9 @@ class FilterProducts {
           }
         })
         // this.arrSort = arrAmount;
-        this.mainPage.render(arrAmount, 'search')
+        if (arrAmount.length !== 0) {
+          this.mainPage.render(arrAmount, 'search')
+        }
         // console.log('amount', arrAmount);
       })
     }

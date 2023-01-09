@@ -283,6 +283,24 @@ class ModalFrame extends Modal {
     const DATA_REGEXP = /^(0[1-9]|1[0-2])\/?([2-9]{2})$/;
     return DATA_REGEXP.test(number);
   }
+
+  toggleWindow (): void {
+    const overlay = document.querySelector('.modal__overlay') as HTMLDivElement;
+    const window = document.querySelector('.modal__window') as HTMLDivElement;
+    overlay.addEventListener('click', (event: Event) => {
+      console.log(event.target);
+      if (overlay.style.display === 'none') {
+        overlay.style.display = 'block';
+      } else {
+        overlay.style.display = 'none';
+      }
+      if (window.style.display === 'none') {
+        window.style.display = 'block';
+      } else {
+        window.style.display = 'none';
+      }
+    })
+  }
 }
 
 export default ModalFrame;

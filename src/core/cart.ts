@@ -1,4 +1,5 @@
 import products from '../products.json';
+import ModalFrame from '../pages/cart-modal/cart-modal';
 interface Product {
   id: number
   title: string
@@ -15,7 +16,6 @@ interface Product {
   images: string[]
 }
 
-
 class Cart {
   private allCart: [{ 'id': string, 'count': number }];
   private mainWrap: HTMLElement;
@@ -23,6 +23,7 @@ class Cart {
   private itemTitle: HTMLElement;
   private res: number;
   private resultSum: HTMLElement;
+  private modalFrame: ModalFrame;
 
   constructor () {
     // if (localStorage.getItem('Cart') == null || localStorage.getItem('Cart')?.length === 0) {
@@ -35,6 +36,7 @@ class Cart {
     this.itemTitle = document.querySelector('.item-title') as HTMLElement;
     this.main = document.querySelector('.main') as HTMLElement;
     this.res = 0;
+    this.modalFrame = new ModalFrame();
     this.resultSum = document.createElement('div') as HTMLElement;
   }
 
@@ -69,6 +71,8 @@ class Cart {
   }
 
   render (prod: Product[], str: string): HTMLElement {
+    const search = document.querySelector('.header__search') as HTMLElement; // прятать поиск
+    search.style.display = 'none'; // прятать поиск
     const globalCont = document.createElement('div');
     globalCont.className = 'global-cont';
     const local = localStorage.getItem('Cart');
@@ -111,7 +115,7 @@ class Cart {
       gameTitle.className = 'game-title';
 
       const gamePrice = document.createElement('div');
-      gamePrice.innerText = `${prod[id].price} руб. за 1 шт`;
+      gamePrice.innerText = `${prod[id].price} руб. за 1 шт.`;
       gamePrice.className = 'game-price';
 
       const gameBtnCountMinus = document.createElement('div');
@@ -145,7 +149,7 @@ class Cart {
       gameCountContainer.type = 'number';
       gameCountContainer.min = '0'
       gameCountContainer.className = 'game-count-container';
-      gameCountContainer.style.height = '20px'
+      gameCountContainer.style.height = '25px'
       gameCountContainer.value = `${element.count}`
 
       gameCountContainer.oninput = () => {
@@ -186,6 +190,18 @@ class Cart {
     btnBuy.className = 'btn-buy';
     btnBuy.innerText = 'Купить';
     btnBuy.style.cursor = 'pointer';
+
+    btnBuy.addEventListener('click', () => {
+      this.modalFrame.render();
+      this.modalFrame.toggleWindow();
+    })
+
+    // const overlay = document.querySelector('.modal__overlay');
+    // if (overlay !== null) {
+    //   overlay.onclick = () => {
+        
+    //    }
+    // }
     globalCont.append(containerCart, btnBuy)
     this.mainWrap.append(globalCont); // добавление контейнера корзины на страницу
     this.main.append(this.mainWrap);
