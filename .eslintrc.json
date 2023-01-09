@@ -28,6 +28,8 @@
     },
     "parser": "@typescript-eslint/parser",
     "rules": {
+        "eslint-disable-next-line": "off",
+        "@typescript-elint/no-unsafe-assignment": "off",
         "eol-last": "warn",
         "@typescript-eslint/semi": "off",
         "@typescript-eslint/prefer-readonly": "warn",

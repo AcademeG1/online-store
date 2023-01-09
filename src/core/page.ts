@@ -52,6 +52,8 @@ abstract class Page {
     this.price.id = `${item.id}productBtn`
     this.price.innerText = `${item.price} руб`;
     // this.cart.removeCart('0'); // почистить массив, перед добавлением
+    this.cart.viewCountCart();
+
     this.price.addEventListener('click', (event) => {
       const element = document.getElementById(`${item.id}productBtn`) as HTMLElement;
       this.checkElem(element, item);
