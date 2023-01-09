@@ -9,7 +9,6 @@ import ErrorPage from '../error/error';
 import products from '../../products.json';
 import Cart from '../../core/cart';
 import FilterProducts from '../main-search/mainFilter';
-import SortProducts from '../main-search/mainSort';
 class App {
   private mainPage: MainPage;
   private searchProducts: SearchProducts;

@@ -52,7 +52,6 @@ class MainPage extends Page {
     const search = document.querySelector('.header__search') as HTMLElement; // показать поиск
     search.style.display = 'flex'; // показать поиск
     this.mainContent = document.querySelector('.products__container') as HTMLElement;
-    // this.render(this.filter.checkOption(), 'search');
     if (arrElementRender.length === 0) {
       const none = document.createElement('div');
       none.style.textAlign = 'center';
@@ -228,8 +227,6 @@ class MainPage extends Page {
         const element = document.createElement('div');
         element.id = `${++index}product`;
         element.className = 'product__item';
-        // element.href = `#${index}product`;
-        // const element = this.createNewElement('a', 'product__item', `${++index}product`); // создание карточки товара, ее контейнер
         arrayId.push(`${index}product`);
         const elementContent = this.createNewElement('div', 'product__item_content'); // создание оболочки элементов контейнера карты
         // const imgElementContent = this.createNewElement('div', 'product_image'); // создание оболочки для картинки
@@ -240,9 +237,8 @@ class MainPage extends Page {
         img.className = `${index}product`; // класс для картинки
         img.src = `${item.thumbnail}`; // путь для картинки
         imgElementContent.append(img); // добавление картинки в контейнер картинки (враппер)
-        // const elemPrice =
-        // console.log(elemPrice)
-        elementContent.append(imgElementContent, this.createNewElement('div', 'product_title', '', `${item.title}`), this.createElementListener(item)/*, this.createNewElement('div', 'product_price button', '', `${item.price} руб`) */); // добавление картинки, названия карточки (игры)  и ценник
+        elementContent.append(imgElementContent, this.createNewElement('div', 'product_title', '', `${item.title}`)); // добавление картинки, названия карточки (игры)  и ценник
+        elementContent.append(this.createElementListener(item)); // создание кнопки с ценником
         const productParams = this.createNewElement('div', 'product_params'); // создание контейнера для добавления параметров
         // наполнение контейнера параметрами
         // рейтинг
@@ -277,6 +273,15 @@ class MainPage extends Page {
         elementContent.append(productParams); // добавление в карточку, контейнера с параметрами
         element.append(elementContent); // добавление оболочки всех элементов со всеми элементами в главный элемент
         this.mainContent.append(element); // добавление на страницу
+
+        const value = JSON.parse(localStorage.getItem('Cart') || ''); // отрисовка кнопки, если элемент был уже вв корзине
+        const btnText = document.getElementById(`${item.id}productBtn`) as HTMLElement;
+        value.forEach((elem: { id: string, count: number }) => {
+          if (elem.id === String(item.id)) {
+            btnText.innerText = 'В корзине';
+            btnText.style.background = 'red';
+          }
+        })
       });
     }
     return this.mainContainer;
