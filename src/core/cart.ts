@@ -76,6 +76,14 @@ class Cart {
     const globalCont = document.createElement('div');
     globalCont.className = 'global-cont';
     const local = localStorage.getItem('Cart');
+
+    const titDesc = document.querySelector('.product_title_description');
+    const itemDesc = document.querySelector('.product_item_description');
+    const contDesc = document.querySelector('.product_container_description');
+    titDesc?.remove();
+    itemDesc?.remove();
+    contDesc?.remove();
+
     if (local !== null) {
       this.allCart = JSON.parse(local);
     }
@@ -196,12 +204,6 @@ class Cart {
       this.modalFrame.toggleWindow();
     })
 
-    // const overlay = document.querySelector('.modal__overlay');
-    // if (overlay !== null) {
-    //   overlay.onclick = () => {
-        
-    //    }
-    // }
     globalCont.append(containerCart, btnBuy)
     this.mainWrap.append(globalCont); // добавление контейнера корзины на страницу
     this.main.append(this.mainWrap);

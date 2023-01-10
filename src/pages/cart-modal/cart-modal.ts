@@ -26,10 +26,8 @@ class ModalFrame extends Modal {
     const inputsContainer = this.createDivElement('div', 'inputs__container');
     modalContent.append(inputsContainer);
 
-    const personFirstName = this.createInputElement('input', 'personal-name input', 'Имя', 'text', 100)
+    const personFirstName = this.createInputElement('input', 'personal-name input', 'Имя и Фамилия', 'text', 100)
     inputsContainer.append(personFirstName);
-    const personLastName = this.createInputElement('input', 'personal-name input', 'Фамилия', 'text', 100)
-    inputsContainer.append(personLastName);
     const phoneNumber = this.createInputElement('input', 'personal-phone input', 'Телефон', 'text', 13);
     inputsContainer.append(phoneNumber);
     const personAddress = this.createInputElement('input', 'personal-address input', 'Адрес доставки', 'text', 100);
@@ -71,6 +69,44 @@ class ModalFrame extends Modal {
     buttonModal.innerText = 'Подтвердить';
     modalContent.append(buttonModal);
 
+    // оформление заказа
+    buttonModal.addEventListener('click', () => {
+      if (personEmail.style.borderColor === 'green' &&
+     cardNumber.style.borderColor === 'green' &&
+     personFirstName.style.borderColor === 'green' &&
+     personAddress.style.borderColor === 'green' &&
+     cvvNumber.style.borderColor === 'green' &&
+     cardExpired.style.borderColor === 'green' &&
+     phoneNumber.style.borderColor === 'green') {
+        alert('Заказ оформлен!');
+      }
+    })
+
+    // если поля не заполнены
+    buttonModal.addEventListener('click', () => {
+      if (!(cardNumber as HTMLInputElement).value) {
+        cardNumber.style.borderColor = 'red';
+      }
+      if (!(cardExpired as HTMLInputElement).value) {
+        cardExpired.style.borderColor = 'red';
+      }
+      if (!(cvvNumber as HTMLInputElement).value) {
+        cvvNumber.style.borderColor = 'red';
+      }
+      if (!(personAddress as HTMLInputElement).value) {
+        personAddress.style.borderColor = 'red';
+      }
+      if (!(phoneNumber as HTMLInputElement).value) {
+        phoneNumber.style.borderColor = 'red';
+      }
+      if (!(personFirstName as HTMLInputElement).value) {
+        personFirstName.style.borderColor = 'red';
+      }
+      if (!(personEmail as HTMLInputElement).value) {
+        personEmail.style.borderColor = 'red';
+      }
+    })
+
     if (cardExpired !== null) {
       cardExpired.addEventListener('input', (event: Event) => {
         (event.target as HTMLInputElement).value = this.expireFormat((event.target as HTMLInputElement).value);
@@ -79,6 +115,7 @@ class ModalFrame extends Modal {
       if (cardNumber !== null) {
         cardNumber.addEventListener('input', (event: Event) => {
           (event.target as HTMLInputElement).value = this.numberFormat((event.target as HTMLInputElement).value);
+          (event.target as HTMLInputElement).value = this.numbersCard((event.target as HTMLInputElement).value);
           const valid = this.validNumberCard((event.target as HTMLInputElement).value);
           if (valid) {
             cardNumber.style.borderColor = 'green'
@@ -118,23 +155,10 @@ class ModalFrame extends Modal {
           })
         }
 
-        if (personLastName !== null) {
-          personLastName.addEventListener('input', (event: Event) => {
-            const valid = this.validName((event.target as HTMLInputElement).value);
-            if (valid) {
-              personLastName.style.borderColor = 'green'
-            } else {
-              personLastName.style.borderColor = 'red'
-            }
-            if ((event.target as HTMLInputElement).value === '') {
-              personLastName.style.borderColor = 'rgb(77, 77, 77)'
-            }
-          })
-        }
-
         if (phoneNumber !== null) {
           phoneNumber.addEventListener('input', (event: Event) => {
             const valid = this.validPhoneNumber((event.target as HTMLInputElement).value);
+            (event.target as HTMLInputElement).value = this.numbers((event.target as HTMLInputElement).value);
             if (valid) {
               phoneNumber.style.borderColor = 'green'
             } else {
@@ -163,6 +187,7 @@ class ModalFrame extends Modal {
         if (cvvNumber !== null) {
           cvvNumber.addEventListener('input', (event: Event) => {
             const valid = this.validCvv((event.target as HTMLInputElement).value);
+            (event.target as HTMLInputElement).value = this.numbersCard((event.target as HTMLInputElement).value);
             if (valid) {
               cvvNumber.style.borderColor = 'green'
             } else {
@@ -187,33 +212,6 @@ class ModalFrame extends Modal {
             }
           })
         }
-
-        buttonModal.addEventListener('click', () => {
-          if (!(cardNumber as HTMLInputElement).value) {
-            cardNumber.style.borderColor = 'red';
-          }
-          if (!(cardExpired as HTMLInputElement).value) {
-            cardExpired.style.borderColor = 'red';
-          }
-          if (!(cvvNumber as HTMLInputElement).value) {
-            cvvNumber.style.borderColor = 'red';
-          }
-          if (!(personAddress as HTMLInputElement).value) {
-            personAddress.style.borderColor = 'red';
-          }
-          if (!(phoneNumber as HTMLInputElement).value) {
-            phoneNumber.style.borderColor = 'red';
-          }
-          if (!(personFirstName as HTMLInputElement).value) {
-            personFirstName.style.borderColor = 'red';
-          }
-          if (!(personLastName as HTMLInputElement).value) {
-            personLastName.style.borderColor = 'red';
-          }
-          if (!(personEmail as HTMLInputElement).value) {
-            personEmail.style.borderColor = 'red';
-          }
-        })
       }
     }
 
@@ -249,13 +247,25 @@ class ModalFrame extends Modal {
     }
   }
 
+  numbers (num: string): string {
+    return num.replace(
+      /[^0-9,+]/g, '' // только цифры
+    )
+  }
+
+  numbersCard (num: string): string {
+    return num.replace(
+      /[^0-9]/g, '' // только цифры
+    )
+  }
+
   validEmail (name: string): boolean {
     const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
     return EMAIL_REGEXP.test(name);
   }
 
   validName (name: string): boolean {
-    const NAME_REGEXP = /^[А-ЯЁ][а-яё]{1,19}$/; // имя с большой буквы и на русском
+    const NAME_REGEXP = /(^[A-Z][a-z]{2,14} [A-Z][a-z]{2,14}$)|(^[А-Я][а-я]{2,14} [А-Я][а-я]{2,14}$)/; // имя с большой буквы и на русском
     return NAME_REGEXP.test(name);
   }
 
@@ -270,7 +280,7 @@ class ModalFrame extends Modal {
   }
 
   validAddress (number: string): boolean {
-    const ADDRESS_REGEXP = /^[а-я\s.]+?\d+/i; // адрес формата ул.д.
+    const ADDRESS_REGEXP = /(^[A-Z][a-z]{4,14} [A-Z][a-z]{4,14} [A-Z][a-z]{4,14}$)|(^[А-Я][а-я]{4,14} [А-Я][а-я]{4,14} [А-Я][а-я]{4,14}$)/; // адрес
     return ADDRESS_REGEXP.test(number);
   }
 
@@ -288,17 +298,8 @@ class ModalFrame extends Modal {
     const overlay = document.querySelector('.modal__overlay') as HTMLDivElement;
     const window = document.querySelector('.modal__window') as HTMLDivElement;
     overlay.addEventListener('click', (event: Event) => {
-      console.log(event.target);
-      if (overlay.style.display === 'none') {
-        overlay.style.display = 'block';
-      } else {
-        overlay.style.display = 'none';
-      }
-      if (window.style.display === 'none') {
-        window.style.display = 'block';
-      } else {
-        window.style.display = 'none';
-      }
+      window.remove();
+      overlay.remove();
     })
   }
 }

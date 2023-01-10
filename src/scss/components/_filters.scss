@@ -74,3 +74,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.remove_filter {
+  text-align: center;
+  .button-remove {
+    height: 38px;
+  }
+}

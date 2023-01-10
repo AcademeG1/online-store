@@ -95,6 +95,14 @@ class MainPage extends Page {
                   <option value="lastname">по названию (Я-А)</option>
                 </select>
               </div>
+              <div class="product-view">
+                <div class="list-view"> 
+                  <img src="./img/icon-list.png" alt="List" width="25" height="25"/>
+                </div>
+                <div class="table-view"> 
+                  <img src="./img/icon-table.png" alt="List" width="25" height="25"/>
+                </div>
+              </div>
             </div>
             <div class="two-columns">
               <div class="main__sidebar">
@@ -211,6 +219,9 @@ class MainPage extends Page {
                       </div>
                     </div>
                   </div>
+                  <div class="remove_filter">
+                  <button class="button button-remove">Сбросить фильтры</button>
+                  </div>
                 </div>
               </div>
               <div class="main__content">
@@ -238,7 +249,8 @@ class MainPage extends Page {
         img.className = `${index}product`; // класс для картинки
         img.src = `${item.thumbnail}`; // путь для картинки
         imgElementContent.append(img); // добавление картинки в контейнер картинки (враппер)
-        elementContent.append(imgElementContent, this.createNewElement('div', 'product_title', '', `${item.title}`)); // добавление картинки, названия карточки (игры)  и ценник
+        const productTitle = this.createNewElement('div', 'product_title', '', `${item.title}`)
+        elementContent.append(imgElementContent, productTitle); // добавление картинки, названия карточки (игры)  и ценник
         elementContent.append(this.createElementListener(item)); // создание кнопки с ценником
         const productParams = this.createNewElement('div', 'product_params'); // создание контейнера для добавления параметров
         // наполнение контейнера параметрами
@@ -280,9 +292,41 @@ class MainPage extends Page {
         value.forEach((elem: { id: string, count: number }) => {
           if (elem.id === String(item.id)) {
             btnText.innerText = 'В корзине';
-            btnText.style.background = 'red';
+            btnText.style.background = 'rgb(238, 108, 61)';
           }
         })
+
+        // смена вида карточек
+        const listView = document.querySelector('.list-view');
+        const tableView = document.querySelector('.table-view');
+        const productContainer = document.querySelector('.products__container') as HTMLDivElement;
+      
+        if (listView !== null) {
+          listView.addEventListener('click', () => {
+            productContainer.style.flexDirection = 'column';
+            productContainer.style.flexWrap = 'nowrap';
+            element.style.maxWidth = '100%';
+            element.style.minHeight = '200px';
+            imgElementContent.style.flex = '0.6';
+            elementContent.style.flexDirection = 'row';
+            img.style.width = '180px';
+            img.style.height = '200px';
+            productTitle.style.width = '150px';
+          })
+        }
+        if (tableView !== null) {
+          tableView.addEventListener('click', () => {
+            productContainer.style.flexDirection = 'row';
+            productContainer.style.flexWrap = 'wrap';
+            element.style.maxWidth = '310px';
+            element.style.minHeight = '453px';
+            imgElementContent.style.flex = '1';
+            elementContent.style.flexDirection = 'column';
+            img.style.width = '85%';
+            img.style.height = '85%';
+            productTitle.style.width = '100%';
+          })
+        }
       });
     }
     const sortInfo = document.querySelector('.counterItem') as HTMLElement;

@@ -51,3 +51,20 @@ select {
   color: $color-text;
   cursor: pointer;
 }
+
+.product-view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.list-view, .table-view {
+  &:hover {
+    scale: 1.2;
+    transition: all ease .4s;
+  }
+}
+

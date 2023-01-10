@@ -252,6 +252,15 @@ class FilterProducts {
       })
     }
   }
+
+  removeFilter(): void {
+    const removeBtn = document.querySelector('.button-remove');
+    if (removeBtn !== null) {
+      removeBtn.addEventListener('click', () => {
+        this.mainPage.render(products, 'search')
+      })
+    }
+  }
 }
 
 export default FilterProducts;
