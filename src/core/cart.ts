@@ -146,6 +146,7 @@ class Cart {
           localStorage.setItem('Cart', JSON.stringify(this.allCart));
           this.getSum();
         }
+        this.viewCountCart();
       })
 
       const gameCountContainer = document.createElement('input');
