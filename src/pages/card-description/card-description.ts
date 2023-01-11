@@ -1,5 +1,6 @@
 import Description from '../../core/description';
 import products from '../../products.json';
+import Cart from '../../core/cart';
 
 class CardDescriptionPage extends Description {
   private readonly card: HTMLElement;
@@ -10,6 +11,7 @@ class CardDescriptionPage extends Description {
   private readonly footer: HTMLElement;
   private readonly main: HTMLElement;
   private readonly mainWrap: HTMLElement;
+  private cart: Cart;
 
   constructor (ids: string) {
     super(ids);
@@ -22,6 +24,7 @@ class CardDescriptionPage extends Description {
     this.main = document.querySelector('.main') as HTMLElement;
     this.footer = document.querySelector('.footer') as HTMLElement;
     this.body = document.body;
+    this.cart = new Cart();
   }
 
   render (): HTMLElement {
@@ -94,6 +97,40 @@ class CardDescriptionPage extends Description {
     this.itemTitle.innerText = products.filter(elem => elem.id === this.ids)[0].title; // создание в ветке роутинга, нового названия
     this.body.append(this.main); // добавление мэин в боди
     this.body.append(this.footer); // добавление футера после мэин в боди
+
+    const value = JSON.parse(localStorage.getItem('Cart') || ''); // отрисовка кнопки, если элемент был уже вв корзине
+    const btnText = document.querySelector('.product_button_description') as HTMLElement;
+    console.log(btnText)
+    let idCard = products[this.ids].id;
+    --idCard;
+    value.forEach((elem: { id: string, count: number }) => {
+      console.log('цикл', elem.id, ' ', idCard)
+      if (elem.id === String(idCard)) {
+        console.log('зашел', elem.id, ' ', idCard)
+        btnText.innerText = 'В корзине';
+        btnText.style.background = 'red';
+      }
+    })
+    btnText.onclick = () => {
+      if (btnText.innerText === 'В корзине') {
+        btnText.style.color = '';
+        btnText.innerText = 'Добавить в корзину';
+        btnText.style.background = 'rgb(242, 208, 97)';
+        this.cart.removeCart(String(idCard));
+        localStorage.setItem('Cart', JSON.stringify(this.cart.allCart));
+        this.cart.viewCountCart();
+        // удалить из корщины
+      } else {
+        btnText.innerText = 'В корзине';
+        btnText.style.background = 'red';
+        let idCardMin = idCard;
+        this.cart.addCart(String(idCard), 1, products[--idCardMin].price)
+        localStorage.setItem('Cart', JSON.stringify(this.cart.allCart));
+        this.cart.viewCountCart();
+        // добавить в корзину
+      }
+    }
+
     return this.body; // возвращаем готовый боди
   }
 }

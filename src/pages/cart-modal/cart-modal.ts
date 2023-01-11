@@ -1,13 +1,15 @@
 import Modal from '../../core/modal';
-
+import Cart from '../../core/cart';
 class ModalFrame extends Modal {
   private readonly body: HTMLElement;
   private readonly mainWrap: HTMLElement;
+  // private cart: Cart;
 
   constructor () {
     super();
     this.body = document.body;
     this.mainWrap = document.querySelector('.main__wrapper') as HTMLElement;
+    // this.cart = new Cart();
   }
 
   render (): HTMLElement {
@@ -78,6 +80,10 @@ class ModalFrame extends Modal {
      cvvNumber.style.borderColor === 'green' &&
      cardExpired.style.borderColor === 'green' &&
      phoneNumber.style.borderColor === 'green') {
+      // очитска корзины и переход на главную
+      // this.cart.allCart = [] as unknown as [{ id: string, count: number }];
+      localStorage.setItem('Cart', JSON.stringify([]));
+      window.location.hash = '#mainPage';
         alert('Заказ оформлен!');
       }
     })

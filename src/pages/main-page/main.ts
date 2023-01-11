@@ -24,12 +24,16 @@ class MainPage extends Page {
   private mainContainer: HTMLElement;
   private mainContent: HTMLElement;
   private footer: HTMLElement;
+  private viewHorizontal: boolean;
+  private viewStandart: boolean;
 
   constructor (id: string) {
     super(id);
     this.mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContent = document.body; // это просто присвоение на приколе, ниже переназначено на .main__content
     this.footer = document.querySelector('.footer') as HTMLElement;
+    this.viewHorizontal = false;
+    this.viewStandart = true;
   }
 
   createNewElement (tagName: string, className: string, idName?: string, text?: string): HTMLElement {
@@ -297,42 +301,65 @@ class MainPage extends Page {
         })
 
         // смена вида карточек
-        const listView = document.querySelector('.list-view');
         const tableView = document.querySelector('.table-view');
-        const productContainer = document.querySelector('.products__container') as HTMLDivElement;
-      
+        const listView = document.querySelector('.list-view');
+        const saveArr = arrElementRender;
+
         if (listView !== null) {
           listView.addEventListener('click', () => {
-            productContainer.style.flexDirection = 'column';
-            productContainer.style.flexWrap = 'nowrap';
-            element.style.maxWidth = '100%';
-            element.style.minHeight = '200px';
-            imgElementContent.style.flex = '0.6';
-            elementContent.style.flexDirection = 'row';
-            img.style.width = '180px';
-            img.style.height = '200px';
-            productTitle.style.width = '150px';
+            this.viewStandart = false;
+            this.viewHorizontal = true;
+            console.log('сделал флаг horizontal')
+            this.renderVisual(element, imgElementContent, img, productTitle, elementContent);
           })
         }
         if (tableView !== null) {
           tableView.addEventListener('click', () => {
-            productContainer.style.flexDirection = 'row';
-            productContainer.style.flexWrap = 'wrap';
-            element.style.maxWidth = '310px';
-            element.style.minHeight = '453px';
-            imgElementContent.style.flex = '1';
-            elementContent.style.flexDirection = 'column';
-            img.style.width = '85%';
-            img.style.height = '85%';
-            productTitle.style.width = '100%';
+            this.viewStandart = true;
+            this.viewHorizontal = false;
+            console.log('сделал флаг standart')
+            this.renderVisual(element, imgElementContent, img, productTitle, elementContent);
           })
         }
+
+        this.renderVisual(element, imgElementContent, img, productTitle, elementContent);
       });
     }
     const sortInfo = document.querySelector('.counterItem') as HTMLElement;
     const pc = document.querySelector('.products__container') as HTMLElement;
     sortInfo.innerText = `Всего игр: ${pc.childNodes.length}`;
     return this.mainContainer;
+  }
+
+  renderVisual (element: HTMLDivElement, imgElementContent: HTMLAnchorElement, img: HTMLImageElement, productTitle: HTMLElement, elementContent: HTMLElement): void {
+    const listView = document.querySelector('.list-view');
+    const productContainer = document.querySelector('.products__container') as HTMLDivElement;
+
+    if (this.viewHorizontal === true && this.viewStandart === false && listView !== null) {
+      console.log('зашел в иф горизонтал')
+      productContainer.style.flexDirection = 'column';
+      productContainer.style.flexWrap = 'nowrap';
+      element.style.maxWidth = '100%';
+      element.style.minHeight = '200px';
+      element.style.maxHeight = '300px';
+      imgElementContent.style.flex = '0.6';
+      elementContent.style.flexDirection = 'row';
+      img.style.width = '180px';
+      img.style.height = '200px';
+      productTitle.style.width = '150px';
+    }
+
+    if (this.viewHorizontal === false && this.viewStandart === true && listView !== null) {
+      productContainer.style.flexDirection = 'row';
+      productContainer.style.flexWrap = 'wrap';
+      element.style.maxWidth = '310px';
+      element.style.minHeight = '453px';
+      imgElementContent.style.flex = '1';
+      elementContent.style.flexDirection = 'column';
+      img.style.width = '85%';
+      img.style.height = '85%';
+      productTitle.style.width = '100%';
+    }
   }
 }
 
