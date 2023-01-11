@@ -17,7 +17,7 @@ interface Product {
 }
 
 class Cart {
-  private allCart: [{ 'id': string, 'count': number }];
+  public allCart: [{ 'id': string, 'count': number, price: number }];
   private mainWrap: HTMLElement;
   private main: HTMLElement;
   private itemTitle: HTMLElement;
@@ -26,12 +26,13 @@ class Cart {
   private modalFrame: ModalFrame;
 
   constructor () {
-    // if (localStorage.getItem('Cart') == null || localStorage.getItem('Cart')?.length === 0) {
-    //   this.allCart = [{ id: '0', count: 0 }];
-    //   this.removeCart('0');
-    // } else {
-    this.allCart = JSON.parse(localStorage.getItem('Cart') || '');
-    // }
+    if (localStorage.getItem('Cart') === null) {
+      this.allCart = [] as unknown as [{ 'id': string, 'count': number, price: number }];
+      localStorage.setItem('Cart', JSON.stringify(this.allCart));
+    } else {
+      this.allCart = JSON.parse(localStorage.getItem('Cart') || '');
+    }
+    // this.allCart = JSON.parse(localStorage.getItem('Cart') || '');
     this.mainWrap = document.querySelector('.main__wrapper') as HTMLElement;
     this.itemTitle = document.querySelector('.item-title') as HTMLElement;
     this.main = document.querySelector('.main') as HTMLElement;
@@ -40,12 +41,12 @@ class Cart {
     this.resultSum = document.createElement('div') as HTMLElement;
   }
 
-  addCart (id: string, counter: number): [{ 'id': string, 'count': number }] {
+  addCart (id: string, counter: number, pricee: number): [{ 'id': string, 'count': number, 'price': number }] {
     if (id === '0') {
       this.removeCart(id);
       return this.allCart;
     } else {
-      this.allCart.push({ id: id, count: counter });
+      this.allCart.push({ id: id, count: counter, price: pricee });
       console.log(this.allCart)
       return this.allCart;
     }
@@ -67,7 +68,17 @@ class Cart {
     if (localStorage.getItem('Cart') !== null || localStorage.getItem('Cart')?.length !== 0) {
       this.allCart = JSON.parse(localStorage.getItem('Cart') || ''); // в процессе, чтобы значение в счетчике обновлялось автоматически
     }
-    counter.innerText = `${this.allCart.length}`;
+    let result = 0;
+    this.allCart.forEach(element => {
+      result += element.count;
+    })
+    counter.innerText = `${result}`;
+    const counterPrice = document.querySelector('.header__shoping-cart_countPrice') as HTMLElement;
+    let resultPrice = 0;
+    this.allCart.forEach(element => {
+      resultPrice += element.price * element.count;
+    })
+    counterPrice.innerText = `${resultPrice} руб.`;
   }
 
   render (prod: Product[], str: string): HTMLElement {
@@ -76,25 +87,17 @@ class Cart {
     const globalCont = document.createElement('div');
     globalCont.className = 'global-cont';
     const local = localStorage.getItem('Cart');
+
+    const titDesc = document.querySelector('.product_title_description');
+    const itemDesc = document.querySelector('.product_item_description');
+    const contDesc = document.querySelector('.product_container_description');
+    titDesc?.remove();
+    itemDesc?.remove();
+    contDesc?.remove();
+
     if (local !== null) {
       this.allCart = JSON.parse(local);
     }
-    // console.log(prod)
-    // prod.unshift({
-    //   id: 0,
-    //   title: '0',
-    //   description: '0',
-    //   price: 0,
-    //   discountPercentage: 0,
-    //   rating: 0,
-    //   brand: '0',
-    //   category: '0',
-    //   duration: 0,
-    //   amount: 0,
-    //   old: 0,
-    //   thumbnail: '0',
-    //   images: ['0', '0', '0']
-    // })
     const containerCart: HTMLElement = document.createElement('div');
     containerCart.className = 'all-cart-container';
     if (local !== null) {
@@ -143,6 +146,7 @@ class Cart {
           localStorage.setItem('Cart', JSON.stringify(this.allCart));
           this.getSum();
         }
+        this.viewCountCart();
       })
 
       const gameCountContainer = document.createElement('input');
@@ -180,6 +184,7 @@ class Cart {
         this.allCart[index].count = Number(gameCountContainer.value);
         localStorage.setItem('Cart', JSON.stringify(this.allCart));
         this.getSum();
+        this.viewCountCart();
       })
 
       gameContainer.append(gameImg, gameTitle, gamePrice, gameBtnCountMinus, gameCountContainer, gameBtnCountPlus);
@@ -196,12 +201,6 @@ class Cart {
       this.modalFrame.toggleWindow();
     })
 
-    // const overlay = document.querySelector('.modal__overlay');
-    // if (overlay !== null) {
-    //   overlay.onclick = () => {
-        
-    //    }
-    // }
     globalCont.append(containerCart, btnBuy)
     this.mainWrap.append(globalCont); // добавление контейнера корзины на страницу
     this.main.append(this.mainWrap);

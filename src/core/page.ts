@@ -66,7 +66,7 @@ abstract class Page {
       this.cart.removeCart(item.id.toString())
       this.refactorElement(element, 'rgb(242, 208, 97)', `${item.price} руб`);
     } else {
-      this.cart.addCart(item.id.toString(), 1);
+      this.cart.addCart(item.id.toString(), 1, item.price);
       this.refactorElement(element, 'red', 'В корзине');
     }
   }

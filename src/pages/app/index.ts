@@ -44,6 +44,7 @@ class App {
           met.checkOption();
           met.getSortOption('sort');
           met.noSlider();
+          met.removeFilter();
         }
       } catch (all) {
         console.log('Все под контролем) отработал и хорошо)')

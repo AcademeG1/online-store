@@ -194,11 +194,25 @@ class FilterProducts {
 
         const arrPrice: Product[] = [];
         this.arrSort.forEach(element => {
+          if (rangePriceFrom.value === rangePriceTo.value) {
+            arrPrice.length = 0;
+            const clear = document.querySelector('.products__container') as HTMLElement;
+            clear.innerHTML = '';
+            const none = document.createElement('div');
+            none.style.textAlign = 'center';
+            none.style.width = '100%';
+            none.style.fontSize = '32px';
+            none.style.marginTop = '45px';
+            none.innerText = 'Таких игр нет :(';
+            clear.append(none);
+          }
           if (element.price >= Number(rangePriceFrom.value) && element.price <= Number(rangePriceTo.value)) {
             arrPrice.push(element);
           }
         })
         // this.arrSort = arrPrice;
+        console.log('прайс')
+        console.log(arrPrice)
         if (arrPrice.length !== 0) {
           this.mainPage.render(arrPrice, 'search')
         }
@@ -240,6 +254,18 @@ class FilterProducts {
 
         const arrAmount: Product[] = [];
         this.arrSort.forEach(element => {
+          if (rangePriceFrom.value === rangePriceTo.value) {
+            arrAmount.length = 0;
+            const clear = document.querySelector('.products__container') as HTMLElement;
+            clear.innerHTML = '';
+            const none = document.createElement('div');
+            none.style.textAlign = 'center';
+            none.style.width = '100%';
+            none.style.fontSize = '32px';
+            none.style.marginTop = '45px';
+            none.innerText = 'Таких игр нет :(';
+            clear.append(none);
+          }
           if (element.amount >= Number(rangeAmountFrom.value) && element.amount <= Number(rangeAmountTo.value)) {
             arrAmount.push(element);
           }
@@ -249,6 +275,16 @@ class FilterProducts {
           this.mainPage.render(arrAmount, 'search')
         }
         // console.log('amount', arrAmount);
+      })
+    }
+  }
+
+  removeFilter (): void {
+    const removeBtn = document.querySelector('.button-remove');
+    if (removeBtn !== null) {
+      removeBtn.addEventListener('click', () => {
+        this.mainPage.render(products, 'mainPage');
+        this.noSlider();
       })
     }
   }
